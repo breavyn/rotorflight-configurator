@@ -26,6 +26,12 @@ jobs:
       with:
         node-version-file: '.nvmrc'
 
+    - name: Nwjs cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ github.workspace }}/cache
+        key: ${{ runner.os }}-nwjs
+
     - name: Set build variables
       run: |
         echo "GIT_VER=${GITHUB_REF##*/}" >> ${GITHUB_ENV}
@@ -67,6 +73,12 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
+
+    - name: Nwjs cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ github.workspace }}/cache
+        key: ${{ runner.os }}-nwjs
 
     - name: Set build variables
       run: |
@@ -110,6 +122,12 @@ jobs:
       with:
         node-version-file: '.nvmrc'
 
+    - name: Nwjs cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ github.workspace }}/cache
+        key: ${{ runner.os }}-nwjs
+
     - name: Set build variables
       run: |
         $GIT_VER = $env:GITHUB_REF -replace '.*/',''
@@ -151,6 +169,12 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
+
+    - name: Nwjs cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ github.workspace }}/cache
+        key: ${{ runner.os }}-nwjs
 
     - name: Set build variables
       run: |
