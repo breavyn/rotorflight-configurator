@@ -56,7 +56,7 @@
     "three": "^0.126.1"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.0",
+    "@fortawesome/fontawesome-free": "^6.6.0",
     "@panter/vue-i18next": "^0.15.2",
     "@quanle94/innosetup": "^6.0.2",
     "@vitejs/plugin-vue2": "^2.3.1",
