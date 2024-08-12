@@ -1,3 +1,5 @@
+import * as marked from 'marked';
+
 import filesystem from '@/js/filesystem.js';
 import { GitHubApi } from '@/js/GitHubApi.js';
 
