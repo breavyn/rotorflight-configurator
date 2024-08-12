@@ -1,3 +1,5 @@
+import { RPMFilter } from "@/js/RPMFilter.js";
+
 const tab = {
     tabName: 'gyro',
     isDirty: false,
