@@ -1,3 +1,5 @@
+import filesystem from '@/js/filesystem.js';
+
 const tab = {
     tabName: 'firmware_flasher',
     releases: null,
@@ -811,7 +813,7 @@ tab.initialize = function (callback) {
         $('a.load_file').on('click', async function () {
             self.enableFlashing(false);
 
-            const file = await window.filesystem.readTextFile({
+            const file = await filesystem.readTextFile({
                 description: "Firmware/Target",
                 extensions: [".hex", ".config"],
             });
@@ -1232,7 +1234,7 @@ tab.flashingMessage = function(message, type) {
             var summary = $('select[name="firmware_version"] option:selected').data('summary');
 
             try {
-                await window.filesystem.writeTextFile(self.intel_hex, {
+                await filesystem.writeTextFile(self.intel_hex, {
                     suggestedName: summary.file,
                     description: 'Rotorflight Firmware (.hex)',
                 });

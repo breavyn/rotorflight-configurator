@@ -200,4 +200,4 @@ const web = {
   },
 };
 
-window.filesystem = IS_CORDOVA ? cordova : web;
+export default IS_CORDOVA ? cordova : web;

@@ -1,5 +1,4 @@
 import "@/components/init.js";
-import "@/js/filesystem.js";
 import "@/js/tabs/index.js";
 
 import "nouislider/dist/nouislider.css";
