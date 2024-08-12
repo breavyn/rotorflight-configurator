@@ -1,3 +1,5 @@
+import * as THREE from "three";
+
 import { Model } from '@/js/model.js';
 
 const tab = {
