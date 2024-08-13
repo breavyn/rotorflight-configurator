@@ -2,6 +2,8 @@ import * as marked from 'marked';
 
 import filesystem from '@/js/filesystem.js';
 import { GitHubApi } from '@/js/GitHubApi.js';
+import { STM32 } from '@/js/protocols/stm32.js';
+import { STM32DFU } from '@/js/protocols/stm32usbdfu.js';
 
 const tab = {
     tabName: 'firmware_flasher',
