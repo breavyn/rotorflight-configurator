@@ -15,7 +15,7 @@ SEMVER            ?= 0.0.0
 
 .PHONY: init
 init: ## Install development dependencies
-	yarn install
+	pnpm install
 	$(MAKE) fontawesome
 
 .PHONY: fontawesome
@@ -32,16 +32,16 @@ version: ## Set application version to $SEMVER
 
 .PHONY: watch
 watch: ## Run development server
-	yarn vite
+	pnpm vite
 
 .PHONY: dev
 dev: ## Run development client
 	NW_PRE_ARGS=--load-extension='./node_modules/nw-vue-devtools-prebuilt/extension' \
-	yarn gulp dev
+	pnpm gulp dev
 
 .PHONY: android
 android: ## Run android debug build
-	yarn gulp dev --debug --platform android
+	pnpm gulp dev --debug --platform android
 
 .PHONY: clean
 clean: ##
