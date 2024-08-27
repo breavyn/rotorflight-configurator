@@ -6,8 +6,9 @@
   "main": "http://localhost:5077/src/main.html",
   "node-remote": "http://localhost:*",
   "scripts": {
-    "lint": "eslint --ext .js,.vue src",
-    "lint:fix": "eslint --fix src"
+    "lint": "eslint src/**/*.{js,vue}",
+    "lint:fix": "eslint --fix src/**/*.{js,vue}",
+    "prepare": "husky"
   },
   "window": {
     "icon": "public/images/rf_icon.png",
@@ -54,6 +55,7 @@
     "switchery-latest": "^0.8.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.9.1",
     "@fortawesome/fontawesome-free": "^6.6.0",
     "@panter/vue-i18next": "^0.15.2",
     "@quanle94/innosetup": "^6.0.2",
@@ -61,9 +63,10 @@
     "command-exists": "^1.2.9",
     "cordova-lib": "^12.0.0",
     "d3": "^7.9.0",
-    "eslint": "^8.18.0",
-    "eslint-plugin-vue": "^7.3.0",
+    "eslint": "^9.9.1",
+    "eslint-plugin-vue": "^9.27.0",
     "glob": "^11.0.0",
+    "globals": "^15.9.0",
     "gulp": "^4.0.2",
     "gulp-concat": "~2.6.1",
     "gulp-debian": "^0.1.9",
@@ -73,8 +76,10 @@
     "gulp-xml-transformer": "^8.0.0",
     "gulp-zip": "^6.0.0",
     "gulplog": "^2.2.0",
+    "husky": "^9.1.5",
     "i18next": "^23.15.1",
     "i18next-http-backend": "^2.6.1",
+    "lint-staged": "^15.2.9",
     "marked": "^14.0.0",
     "minimist": "^1.2.8",
     "node-gyp": "^10.2.0",

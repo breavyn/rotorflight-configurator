@@ -93,7 +93,7 @@ function bundle_src() {
 function bundle_deps() {
   return new Promise((resolve, reject) =>
     child_process.exec(
-      "pnpm install --prod --frozen-lockfile",
+      "pnpm install --prod --frozen-lockfile --ignore-scripts",
       { cwd: BUNDLE_DIR },
       (err) => (err ? reject(err) : resolve()),
     ),
@@ -543,7 +543,7 @@ function cordova_configxml() {
 function cordova_deps() {
   return new Promise((resolve, reject) =>
     child_process.exec(
-      "pnpm install --prod --frozen-lockfile",
+      "pnpm install --prod --frozen-lockfile --ignore-scripts",
       { cwd: context.appdir },
       (err) => (err ? reject(err) : resolve()),
     ),

@@ -92,7 +92,7 @@ const cordova = {
       } else {
         console.log("Canceled: file already exists");
       }
-    } catch (err) {
+    } catch (_err) {
       return await new Promise((resolve, reject) =>
         directoryEntry.getFile(fileName, { create: true }, resolve, reject),
       );
