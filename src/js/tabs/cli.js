@@ -200,27 +200,41 @@ tab.initialize = function (callback) {
 
         // Tab key detection must be on keydown,
         // `keypress`/`keyup` happens too late, as `textarea` will have already lost focus.
-        textarea.keydown(function (event) {
-            const tabKeyCode = 9;
-            if (event.which === tabKeyCode) {
-                // prevent default tabbing behaviour
-                event.preventDefault();
-
-                if (!CliAutoComplete.isEnabled()) {
-                    // Native FC autoComplete
-                    const outString = textarea.val();
-                    const lastCommand = outString.split("\n").pop();
-                    const command = getCliCommand(lastCommand, self.cliBuffer);
-                    if (command) {
-                        self.sendNativeAutoComplete(command);
-                        textarea.val('');
-                    }
-                }
-                else if (!CliAutoComplete.isOpen() && !CliAutoComplete.isBuilding()) {
-                    // force show autocomplete on Tab
-                    CliAutoComplete.openLater(true);
-                }
+        textarea.on('input', function() {
+            console.log("textarea.onChange");
+            if (!CliAutoComplete.isOpen()) {
+                console.log("openLater true");
+                CliAutoComplete.openLater(false);
             }
+        });
+        textarea.keydown(function (event) {
+//;           console.log("textarea.keydown", event);
+//            console.log(event.key);
+
+            //if (event.key === 'Tab') event.preventDefault();
+            //if (!CliAutoComplete.isOpen() && !CliAutoComplete.isBuilding()) {
+            //    CliAutoComplete.openLater(true);
+            //}
+            //const tabKeyCode = 9;
+            //if (event.which === tabKeyCode) {
+            //    // prevent default tabbing behaviour
+            //    event.preventDefault();
+            //
+            //    if (!CliAutoComplete.isEnabled()) {
+            //        // Native FC autoComplete
+            //        const outString = textarea.val();
+            //        const lastCommand = outString.split("\n").pop();
+            //        const command = getCliCommand(lastCommand, self.cliBuffer);
+            //        if (command) {
+            //            self.sendNativeAutoComplete(command);
+            //            textarea.val('');
+            //        }
+            //    }
+            //    else if (!CliAutoComplete.isOpen() && !CliAutoComplete.isBuilding()) {
+            //        // force show autocomplete on Tab
+            //        CliAutoComplete.openLater(true);
+            //    }
+            //}
         });
 
         textarea.keypress(function (event) {

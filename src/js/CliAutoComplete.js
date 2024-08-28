@@ -36,7 +36,7 @@ CliAutoComplete.openLater = function(force) {
 };
 
 CliAutoComplete.setEnabled = function(enable) {
-    enable = false; // FIXME
+  console.log("setEnabled", enable);
     if (this.configEnabled !== enable) {
         this.configEnabled = enable;
 
@@ -52,6 +52,7 @@ CliAutoComplete.setEnabled = function(enable) {
 };
 
 CliAutoComplete.initialize = function($textarea, sendLine, writeToOutput) {
+  console.log($textarea.textcomplete);
     this.$textarea = $textarea;
     this.forceOpen = false;
     this.sendLine = sendLine;
@@ -223,7 +224,13 @@ CliAutoComplete._initTextcomplete = function() {
     const searcher = function(term, callback, array, minChars, matchPrefix) {
         const res = [];
 
-        if ((minChars !== false && term.length >= minChars) || self.forceOpen || self.isOpen()) {
+        console.log(`'${term}'`);
+        console.log('minChars', minChars);
+
+        if (term.length >= minChars) {
+            console.log('proceeding with auto complete');
+
+        //if ((minChars !== false && term.length >= minChars) || self.forceOpen || self.isOpen()) {
             term = term.toLowerCase();
             for (let i = 0; i < array.length; i++) {
                 const v = array[i].toLowerCase();
@@ -235,12 +242,12 @@ CliAutoComplete._initTextcomplete = function() {
 
         callback(res);
 
-        if (self.forceOpen && res.length === 1) {
-            // hacky: if we came here because of Tab and there's only one match
-            // trigger Tab again, so that textcomplete should immediately select the only result
-            // instead of showing the menu
-            $textarea.trigger($.Event('keydown', {keyCode:9}));
-        }
+        //if (self.forceOpen && res.length === 1) {
+        //    // hacky: if we came here because of Tab and there's only one match
+        //    // trigger Tab again, so that textcomplete should immediately select the only result
+        //    // instead of showing the menu
+        //    $textarea.trigger($.Event('keydown', {keyCode:9}));
+        //}
     };
 
     const contexter = function(text) {
@@ -323,8 +330,9 @@ CliAutoComplete._initTextcomplete = function() {
         strategy({ // "command"
             match: /^(\s*)(\w*)$/,
             search: function(term, callback) {
+              console.log("search1", term);
                 sendOnEnter = false;
-                searcher(term, callback, cache.commands, false, true);
+                searcher(term, callback, cache.commands, 1, true);
             },
             template: highlighterPrefix,
         }),
@@ -332,6 +340,7 @@ CliAutoComplete._initTextcomplete = function() {
         strategy({ // "get"
             match: /^(\s*get\s+)(\w*)$/i,
             search:  function(term, callback) {
+              console.log("search2", term);
                 sendOnEnter = true;
                 searcher(term, function(arr) {
                     if (term.length > 0 && arr.length > 1) {
@@ -339,21 +348,23 @@ CliAutoComplete._initTextcomplete = function() {
                         arr = [term].concat(arr);
                     }
                     callback(arr);
-                }, cache.settings, 3);
+                }, cache.settings, 0);
             },
         }),
 
         strategy({ // "set"
             match: /^(\s*set\s+)(\w*)$/i,
             search:  function(term, callback) {
+              console.log("search3", term);
                 sendOnEnter = false;
-                searcher(term, callback, cache.settings, 3);
+                searcher(term, callback, cache.settings, 0);
             },
         }),
 
         strategy({ // "set ="
             match: /^(\s*set\s+\w*\s*)$/i,
             search:  function(term, callback) {
+              console.log("search4", term);
                 sendOnEnter = false;
                 searcher('', callback, ['='], false);
             },
@@ -366,6 +377,7 @@ CliAutoComplete._initTextcomplete = function() {
         strategy({ // "set with value"
             match: /^(\s*set\s+(\w+))\s*=\s*(.*)$/i,
             search: function(term, callback, match) {
+              console.log("search5", term);
                 const arr = [];
                 const settingName = match[2].toLowerCase();
                 this.isSettingValueArray = false;
@@ -406,6 +418,7 @@ CliAutoComplete._initTextcomplete = function() {
         strategy({ // "resource"
             match: /^(\s*resource\s+)(\w*)$/i,
             search:  function(term, callback) {
+              console.log("search6", term);
                 sendOnEnter = false;
                 let arr = cache.resources;
                 if (semver.gte(FC.CONFIG.flightControllerVersion, "4.0.0")) {
@@ -428,6 +441,7 @@ CliAutoComplete._initTextcomplete = function() {
         strategy({ // "resource index"
             match: /^(\s*resource\s+(\w+)\s+)(\d*)$/i,
             search:  function(term, callback, match) {
+              console.log("search7", term);
                 sendOnEnter = false;
                 this.savedTerm = term;
                 callback([`&lt;1-${cache.resourcesCount[match[2].toUpperCase()]}&gt;`]);
@@ -454,6 +468,7 @@ CliAutoComplete._initTextcomplete = function() {
         strategy({ // "resource pin"
             match: /^(\s*resource\s+\w+\s+(\d*\s+)?)(\w*)$/i,
             search:  function(term, callback) {
+              console.log("search8", term);
                 sendOnEnter = !!term;
                 if (term) {
                     if ('none'.startsWith(term)) {
@@ -496,6 +511,7 @@ CliAutoComplete._initTextcomplete = function() {
         strategy({ // "feature" and "beeper"
             match: /^(\s*(feature|beeper)\s+(-?))(\w*)$/i,
             search:  function(term, callback, match) {
+              console.log("search9", term);
                 sendOnEnter = !!term;
                 let arr = cache[match[2].toLowerCase()];
                 if (!match[3]) {
@@ -516,6 +532,7 @@ CliAutoComplete._initTextcomplete = function() {
         strategy({ // "mixer"
             match: /^(\s*mixer\s+)(\w*)$/i,
             search:  function(term, callback) {
+              console.log("search10", term);
                 sendOnEnter = true;
                 searcher(term, callback, cache.mixers, 1);
             },
@@ -558,6 +575,7 @@ CliAutoComplete._initTextcomplete = function() {
         strategy({ // "diff arg1"
             match: /^(\s*diff\s+)(\w*)$/i,
             search:  function(term, callback) {
+              console.log("search", term);
                 sendOnEnter = true;
                 searcher(term, callback, diffArgs1, 1, true);
             },
@@ -567,6 +585,7 @@ CliAutoComplete._initTextcomplete = function() {
         strategy({ // "diff arg1 arg2"
             match: /^(\s*diff\s+\w+\s+)(\w*)$/i,
             search:  function(term, callback) {
+              console.log("search2", term);
                 sendOnEnter = true;
                 searcher(term, callback, diffArgs2, 1, true);
             },
