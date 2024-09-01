@@ -1,6 +1,7 @@
 import * as THREE from "three";
 
 import { Model } from '@/js/model.js';
+import { RateCurve2 } from '@/js/RateCurve.js';
 
 const tab = {
     tabName: 'rates',
