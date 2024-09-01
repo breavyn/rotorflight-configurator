@@ -1,4 +1,5 @@
 import filesystem from '@/js/filesystem.js';
+import { GitHubApi } from '@/js/GitHubApi.js';
 
 const tab = {
     tabName: 'firmware_flasher',
