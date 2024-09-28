@@ -38,7 +38,7 @@ jobs:
       run: make init
 
     - name: Build release for linux64
-      run: yarn gulp redist --platform linux --arch x86_64
+      run: pnpm gulp redist --platform linux --arch x86_64
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
@@ -77,7 +77,7 @@ jobs:
       run: make init
 
     - name: Build release for MacOS
-      run: yarn gulp redist --platform osx --arch x86_64
+      run: pnpm gulp redist --platform osx --arch x86_64
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
@@ -116,7 +116,7 @@ jobs:
       run: make init
 
     - name: Build release for MacOS
-      run: yarn gulp redist --platform osx --arch arm64
+      run: pnpm gulp redist --platform osx --arch arm64
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
@@ -155,7 +155,7 @@ jobs:
       run: make init
 
     - name: Build release for windows
-      run: yarn gulp redist --platform win --arch x86_64
+      run: pnpm gulp redist --platform win --arch x86_64
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
@@ -194,7 +194,7 @@ jobs:
       run: make init
 
     - name: Build release for windows
-      run: yarn gulp redist --platform win --arch x86
+      run: pnpm gulp redist --platform win --arch x86
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
@@ -245,7 +245,7 @@ jobs:
       run: make init
 
     - name: Build release for Android
-      run: yarn gulp redist --platform android
+      run: pnpm gulp redist --platform android
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
