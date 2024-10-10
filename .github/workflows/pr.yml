@@ -21,10 +21,20 @@ jobs:
       with:
         python-version: 3.11
 
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 9
+        run_install: false
+
     - name: Install Node.js
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
+        cache: 'pnpm'
+        cache-dependency-path: |
+          pnpm-lock.yaml
+          cordova/pnpm-lock.yaml
 
     - name: Set build variables
       run: |
@@ -64,10 +74,20 @@ jobs:
       with:
         python-version: 3.11
 
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 9
+        run_install: false
+
     - name: Install Node.js
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
+        cache: 'pnpm'
+        cache-dependency-path: |
+          pnpm-lock.yaml
+          cordova/pnpm-lock.yaml
 
     - name: Set build variables
       run: |
@@ -107,10 +127,20 @@ jobs:
       with:
         python-version: 3.11
 
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 9
+        run_install: false
+
     - name: Install Node.js
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
+        cache: 'pnpm'
+        cache-dependency-path: |
+          pnpm-lock.yaml
+          cordova/pnpm-lock.yaml
 
     - name: Set build variables
       run: |
@@ -150,10 +180,20 @@ jobs:
       with:
         python-version: 3.11
 
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 9
+        run_install: false
+
     - name: Install Node.js
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
+        cache: 'pnpm'
+        cache-dependency-path: |
+          pnpm-lock.yaml
+          cordova/pnpm-lock.yaml
 
     - name: Set build variables
       run: |
@@ -193,10 +233,20 @@ jobs:
       with:
         python-version: 3.11
 
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 9
+        run_install: false
+
     - name: Install Node.js
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
+        cache: 'pnpm'
+        cache-dependency-path: |
+          pnpm-lock.yaml
+          cordova/pnpm-lock.yaml
 
     - name: Set build variables
       run: |
@@ -236,10 +286,20 @@ jobs:
       with:
         python-version: 3.11
 
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 9
+        run_install: false
+
     - name: Install Node.js
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
+        cache: 'pnpm'
+        cache-dependency-path: |
+          pnpm-lock.yaml
+          cordova/pnpm-lock.yaml
 
     - name: Install Java JDK
       uses: actions/setup-java@v4
