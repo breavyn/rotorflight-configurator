@@ -31,10 +31,18 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
-        cache: 'pnpm'
-        cache-dependency-path: |
-          pnpm-lock.yaml
-          cordova/pnpm-lock.yaml
+
+    - name: Get pnpm store directory
+      shell: bash
+      run: echo "PNPM_STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+    - uses: actions/cache@v4
+      name: Setup pnpm cache
+      with:
+        path: ${{ env.PNPM_STORE_PATH }}
+        key: ${{ github.job }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ github.job }}-pnpm-store-
 
     - name: Set build variables
       run: |
@@ -84,10 +92,18 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
-        cache: 'pnpm'
-        cache-dependency-path: |
-          pnpm-lock.yaml
-          cordova/pnpm-lock.yaml
+
+    - name: Get pnpm store directory
+      shell: bash
+      run: echo "PNPM_STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+    - uses: actions/cache@v4
+      name: Setup pnpm cache
+      with:
+        path: ${{ env.PNPM_STORE_PATH }}
+        key: ${{ github.job }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ github.job }}-pnpm-store-
 
     - name: Set build variables
       run: |
@@ -137,10 +153,18 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
-        cache: 'pnpm'
-        cache-dependency-path: |
-          pnpm-lock.yaml
-          cordova/pnpm-lock.yaml
+
+    - name: Get pnpm store directory
+      shell: bash
+      run: echo "PNPM_STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+    - uses: actions/cache@v4
+      name: Setup pnpm cache
+      with:
+        path: ${{ env.PNPM_STORE_PATH }}
+        key: ${{ github.job }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ github.job }}-pnpm-store-
 
     - name: Set build variables
       run: |
@@ -190,10 +214,18 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
-        cache: 'pnpm'
-        cache-dependency-path: |
-          pnpm-lock.yaml
-          cordova/pnpm-lock.yaml
+
+    - name: Get pnpm store directory
+      shell: bash
+      run: echo "PNPM_STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+    - uses: actions/cache@v4
+      name: Setup pnpm cache
+      with:
+        path: ${{ env.PNPM_STORE_PATH }}
+        key: ${{ github.job }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ github.job }}-pnpm-store-
 
     - name: Set build variables
       run: |
@@ -243,10 +275,18 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
-        cache: 'pnpm'
-        cache-dependency-path: |
-          pnpm-lock.yaml
-          cordova/pnpm-lock.yaml
+
+    - name: Get pnpm store directory
+      shell: bash
+      run: echo "PNPM_STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+    - uses: actions/cache@v4
+      name: Setup pnpm cache
+      with:
+        path: ${{ env.PNPM_STORE_PATH }}
+        key: ${{ github.job }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ github.job }}-pnpm-store-
 
     - name: Set build variables
       run: |
@@ -296,10 +336,18 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
-        cache: 'pnpm'
-        cache-dependency-path: |
-          pnpm-lock.yaml
-          cordova/pnpm-lock.yaml
+
+    - name: Get pnpm store directory
+      shell: bash
+      run: echo "PNPM_STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+    - uses: actions/cache@v4
+      name: Setup pnpm cache
+      with:
+        path: ${{ env.PNPM_STORE_PATH }}
+        key: ${{ github.job }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml', 'cordova/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ github.job }}-pnpm-store-
 
     - name: Install Java JDK
       uses: actions/setup-java@v4
