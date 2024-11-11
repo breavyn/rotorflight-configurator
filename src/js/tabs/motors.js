@@ -312,7 +312,11 @@ TABS.motors.initialize = function (callback) {
 
         enableMotorOverrideSwitch.change(function () {
             const checked = enableMotorOverrideSwitch.prop('checked');
-            self.toggleMotorOverride(checked);
+            FC.CONFIG.motorOverrideEnabled = checked;
+            $('.overridesEnabled').toggle(checked);
+            $('.motorOverrideSlider').each(function() {
+                $(this).get(0).noUiSlider?.set(0);
+            });
         });
 
         enableMotorOverrideSwitch.prop('checked', FC.CONFIG.motorOverrideEnabled);
@@ -539,18 +543,8 @@ TABS.motors.initialize = function (callback) {
     }
 };
 
-TABS.motors.toggleMotorOverride = function(enable) {
-    $('input[id="motorEnableOverrideSwitch"]').prop('checked', enable);
-    FC.CONFIG.motorOverrideEnabled = enable;
-    $('.overridesEnabled').toggle(enable);
-    $('.motorOverrideSlider').each(function() {
-        $(this).get(0).noUiSlider?.set(0);
-    });
-}
-
 TABS.motors.cleanup = function (callback) {
     this.isDirty = false;
-    this.toggleMotorOverride(false);
 
     callback?.();
 };
