@@ -1,6 +1,26 @@
 import * as noUiSlider from 'nouislider';
 import wNumb from 'wnumb';
 
+function tween(opts) {
+  const { from, to, duration, interval, update, complete } = opts;
+  const start = performance.now();
+
+  function animate() {
+    const elapsed = performance.now() - start;
+    const progress = Math.min(elapsed / duration, 1);
+
+    update(from + (to - from) * progress);
+
+    if (progress < 1) {
+      setTimeout(animate, interval);
+    } else {
+      complete?.();
+    }
+  }
+
+  animate();
+}
+
 const tab = {
     tabName: 'mixer',
     isDirty: false,
@@ -181,8 +201,16 @@ tab.initialize = function (callback) {
         mixerInput.on('change', function () {
             const value = parseFloat(getNumberInput($(this)));
             mixerSlider.noUiSlider.set(value, true, true);
-            FC.MIXER_OVERRIDE[inputIndex] = Math.round(value / axis.scale);
-            mspHelper.sendMixerOverride(inputIndex);
+
+            const from = FC.MIXER_OVERRIDE[inputIndex];
+            const to = Math.round(value / axis.scale);
+
+            const distance = Math.abs(from - to);
+
+            tween({from, to, duration: distance / 8, interval: 5, update: (value) => {
+              FC.MIXER_OVERRIDE[inputIndex] = Math.round(value);
+              mspHelper.sendMixerOverride(inputIndex);
+            }});
         });
 
         mixerEnable.on('change', function () {
