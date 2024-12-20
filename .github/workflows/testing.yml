@@ -295,7 +295,7 @@ jobs:
 
   android:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.0.4
 
     steps:
     - name: Check out repository
