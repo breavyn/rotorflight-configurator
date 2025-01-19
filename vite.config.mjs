@@ -5,6 +5,7 @@ import path from "node:path";
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue2";
+import legacy from "@vitejs/plugin-legacy";
 
 const commitHash = child_process
   .execSync("git rev-parse --short HEAD")
@@ -14,7 +15,6 @@ const commitHash = child_process
 export default defineConfig({
   base: "./",
   build: {
-    target: "chrome119",
     outDir: "./bundle",
     rollupOptions: {
       input: {
@@ -34,7 +34,13 @@ export default defineConfig({
       },
     },
   },
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    legacy({
+      targets: ["chromeAndroid>=51"],
+      modernPolyfills: true,
+    }),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "src"),

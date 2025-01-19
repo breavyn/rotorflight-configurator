@@ -1,6 +1,6 @@
 import { i18n } from "./localization.js";
 
-const REQUIRED_WEBVIEW_VERSION = 72;
+const REQUIRED_WEBVIEW_VERSION = 51;
 const WEBVIEW = {
     chromeVersion: '',
     majorChromeVersion: 0,

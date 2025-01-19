@@ -53,10 +53,13 @@
     "switchery-latest": "^0.8.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
     "@eslint/js": "^9.17.0",
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@panter/vue-i18next": "^0.15.2",
     "@quanle94/innosetup": "^6.0.2",
+    "@vitejs/plugin-legacy": "5",
     "@vitejs/plugin-vue2": "^2.3.1",
     "command-exists": "^1.2.9",
     "concurrently": "^9.1.0",
