@@ -1,9 +1,9 @@
 <script>
   import Section from "@/components/Section.svelte";
   import SubSection from "@/components/SubSection.svelte";
-  import SensorsOrderedList from "./SensorsOrderedList.svelte";
   import SensorsUnorderedList from "./SensorsUnorderedList.svelte";
   import SensorsBitfield from "./SensorsBitfield.svelte";
+  import NewListIdea from "./NewListIdea/NewListIdea.svelte";
   import { TelemetryType } from "../protocols.js";
 
   let { FC = $bindable(), telemetry } = $props();
@@ -12,7 +12,7 @@
 <Section label="receiverTelemetrySensors">
   <SubSection>
     {#if telemetry.type === TelemetryType.ORDERED_LIST}
-      <SensorsOrderedList
+      <NewListIdea
         sensors={telemetry.sensors}
         bind:value={FC.TELEMETRY_CONFIG.telemetry_sensors_list}
       />
