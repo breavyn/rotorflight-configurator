@@ -66,7 +66,7 @@ html[data-theme="light"] {
 }
 
 html[data-theme="dark"] {
-  --val-neutral-hue: 218;
+  --val-neutral-hue: 118;
   --val-neutral-sat: 10%;
 
   --color-yellow-100: hsl(45, 100%, 90%);
