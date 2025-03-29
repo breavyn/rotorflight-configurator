@@ -4974,6 +4974,24 @@
     "rateYawDynamicDeadbandFilter": {
         "message": "Dynamic Deadband Filter"
     },
+    "rateSetupResponseHelp": {
+        "message": ""
+    },
+    "rateSetpointBoostGainHelp": {
+        "message": ""
+    },
+    "rateSetpointBoostCutoffHelp": {
+        "message": ""
+    },
+    "rateYawDynamicCeilingGainHelp": {
+        "message": ""
+    },
+    "rateYawDynamicDeadbandGainHelp": {
+        "message": ""
+    },
+    "rateYawDynamicDeadbandFilterHelp": {
+        "message": ""
+    },
     "gyroFilterSettings": {
         "message": "Gyro Filter Settings"
     },
