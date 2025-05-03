@@ -17,6 +17,7 @@
 !/src/js/main.svelte.js
 !/src/js/port_usage.js
 !/src/js/presets/**/*
+!/src/js/tabs/failsafe.js
 !/src/js/tabs/gyro.js
 !/src/js/tabs/presets.js
 !/src/js/virtual_fc.js
