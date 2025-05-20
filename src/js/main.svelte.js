@@ -80,9 +80,6 @@ Object.assign(globalThis, {
   usbDevices,
 });
 
-CONFIGURATOR.version = __APP_VERSION__;
-CONFIGURATOR.gitChangesetId = __COMMIT_HASH__;
-
 mount(BatteryLegend, { target: document.querySelector("#battery-legend") });
 mount(StatusBar, { target: document.querySelector("#status-bar") });
 mount(Logo, { target: document.querySelector("#logo-desktop") });
