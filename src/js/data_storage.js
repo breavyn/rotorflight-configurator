@@ -1,18 +1,3 @@
-export const API_VERSION_1_31 = '1.31.0';
-export const API_VERSION_1_32 = '1.32.0';
-export const API_VERSION_1_33 = '1.33.0';
-export const API_VERSION_1_34 = '1.34.0';
-export const API_VERSION_1_35 = '1.35.0';
-export const API_VERSION_1_36 = '1.36.0';
-export const API_VERSION_1_37 = '1.37.0';
-export const API_VERSION_1_38 = '1.38.0';
-export const API_VERSION_1_39 = '1.39.0';
-export const API_VERSION_1_40 = '1.40.0';
-export const API_VERSION_1_41 = '1.41.0';
-export const API_VERSION_1_42 = '1.42.0';
-export const API_VERSION_1_43 = '1.43.0';
-export const API_VERSION_1_44 = '1.44.0';
-
 export const API_VERSION_12_6 = '12.6.0';
 export const API_VERSION_12_7 = '12.7.0';
 export const API_VERSION_12_8 = '12.8.0';
