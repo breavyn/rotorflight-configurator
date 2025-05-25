@@ -1,10 +1,9 @@
-import globals from "globals";
+import { defineConfig, globalIgnores } from "eslint/config";
 import pluginJs from "@eslint/js";
+import globals from "globals";
 import pluginSvelte from "eslint-plugin-svelte";
-import { globalIgnores } from "eslint/config";
 
-/** @type {import('eslint').Linter.Config[]} */
-export default [
+export default defineConfig([
   globalIgnores(["./public/"]),
   {
     languageOptions: {
@@ -30,4 +29,4 @@ export default [
       "no-undef": "off",
     },
   },
-];
+]);
