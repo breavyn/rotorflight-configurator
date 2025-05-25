@@ -1,9 +1,11 @@
 import globals from "globals";
 import pluginJs from "@eslint/js";
 import pluginSvelte from "eslint-plugin-svelte";
+import { globalIgnores } from "eslint/config";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
+  globalIgnores(["./public/"]),
   {
     languageOptions: {
       globals: { ...globals.browser, ...globals.node, ...globals.jquery },
