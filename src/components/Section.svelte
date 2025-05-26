@@ -49,27 +49,7 @@
   }
 
   .header {
-    display: flex;
-    height: 32px;
-    font-size: 1rem;
-    font-weight: 400;
-    border-bottom-width: 1px;
-    border-style: solid;
-    align-items: center;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-
-    :global(html[data-theme="light"]) & {
-      color: var(--color-neutral-900);
-      background-color: var(--color-neutral-100);
-      border-bottom-color: var(--color-neutral-400);
-    }
-
-    :global(html[data-theme="dark"]) & {
-      color: var(--color-neutral-100);
-      background-color: var(--color-neutral-900);
-      border-bottom-color: var(--color-neutral-600);
-    }
+    @extend %section-header;
   }
 
   .title {

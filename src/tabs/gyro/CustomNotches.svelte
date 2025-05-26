@@ -212,25 +212,7 @@
   }
 
   .header {
-    display: flex;
-    align-items: end;
-    flex-wrap: wrap;
-    border-bottom-width: 1px;
-    border-style: solid;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-
-    :global(html[data-theme="light"]) & {
-      color: var(--color-neutral-900);
-      background-color: var(--color-neutral-100);
-      border-color: var(--color-neutral-400);
-    }
-
-    :global(html[data-theme="dark"]) & {
-      color: var(--color-neutral-100);
-      background-color: var(--color-neutral-900);
-      border-color: var(--color-neutral-600);
-    }
+    @extend %section-header;
   }
 
   .header ul {
@@ -335,6 +317,8 @@
     }
 
     .header {
+      display: block;
+      height: initial;
       padding-top: 16px;
 
       :global(html[data-theme="light"]) & {
