@@ -1,8 +1,11 @@
 <script>
   import { onMount } from "svelte";
   import diff from "microdiff";
+
   import { i18n } from "@/js/i18n.js";
   import { FC } from "@/js/fc.svelte.js";
+  import { reinitialiseConnection } from "@/js/serial_backend";
+
   import Page from "@/components/Page.svelte";
   import Field from "@/components/Field.svelte";
   import NumberInput from "@/components/NumberInput.svelte";
