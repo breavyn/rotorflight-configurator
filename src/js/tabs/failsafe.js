@@ -5,7 +5,18 @@ import Failsafe from "@/tabs/failsafe/Failsafe.svelte";
 const tab = {
   tabName: "failsafe",
   svelteComponent: null,
-  isDirty: false,
+
+  get isDirty() {
+    return this.svelteComponent?.isDirty();
+  },
+
+  initialize(callback) {
+    const target = document.querySelector("#content");
+    target.innerHTML = "";
+    this.svelteComponent = mount(Failsafe, { target });
+
+    GUI.content_ready(callback);
+  },
 
   cleanup(callback) {
     if (this.svelteComponent) {
@@ -15,16 +26,19 @@ const tab = {
 
     callback?.();
   },
-};
 
-tab.initialize = function (callback) {
-  const target = document.querySelector("#content");
-  target.innerHTML = "";
-  this.svelteComponent = mount(Failsafe, { target });
+  save(callback) {
+    if (this.svelteComponent) {
+      this.svelteComponent.onSave().finally(callback);
+    } else {
+      callback?.();
+    }
+  },
 
-  GUI.content_ready(callback);
-
-  return;
+  revert(callback) {
+    this.svelteComponent?.onRevert();
+    callback?.();
+  },
 };
 
 TABS[tab.tabName] = tab;

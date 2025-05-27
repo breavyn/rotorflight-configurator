@@ -64,11 +64,16 @@
 
   export function onRevert() {
     Object.assign(FC.RX_CONFIG, initialState.RX_CONFIG);
+    Object.assign(FC.RXFAIL_CONFIG, initialState.RXFAIL_CONFIG);
     FC.FEATURE_CONFIG.features.bitfield = initialState.features;
   }
 
   function onClickHelp() {
     window.open(getTabHelpURL("tabFailsafe"), "_system");
+  }
+
+  export function isDirty() {
+    return changes.length > 0;
   }
 </script>
 
