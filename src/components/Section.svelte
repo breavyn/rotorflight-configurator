@@ -57,7 +57,7 @@
   }
 
   .content {
-    padding: 8px 4px;
+    padding: 4px;
     display: flex;
     flex-direction: column;
     border-bottom-left-radius: 4px;
@@ -78,7 +78,6 @@
 
   .summary {
     padding: 8px;
-    padding-bottom: 0;
 
     :global(html[data-theme="light"]) & {
       background-color: var(--color-neutral-100);
