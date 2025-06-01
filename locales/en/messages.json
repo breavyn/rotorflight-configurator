@@ -2163,7 +2163,7 @@
         "message": "Debug 7"
     },
     "receiverBars": {
-        "message": "Receiver Channels"
+        "message": "Channel Assignment"
     },
     "receiverBarsHelp": {
         "message": "Shows the raw RC channels from the receiver exactly the way they are received. Please select the channel map, i.e. the current function for each RC channel."

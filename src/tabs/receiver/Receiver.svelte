@@ -7,6 +7,7 @@
   import ReceiverType from "./ReceiverType.svelte";
   import TelemetrySettings from "./TelemetrySettings.svelte";
   import TelemetrySensors from "./TelemetrySensors/TelemetrySensors.svelte";
+  import ChannelAssignment from "./ChannelAssignment.svelte";
   import {
     TelemetryType,
     RX_PROTOCOLS,
@@ -153,6 +154,7 @@
       <TelemetrySensors {FC} {telemetry} />
     {/if}
   {/if}
+  <ChannelAssignment />
 </div>
 
 <style lang="scss">
