@@ -25,6 +25,9 @@
     "genericDefault": {
         "message": "Default"
     },
+    "genericRange": {
+        "message": "Range"
+    },
     "axisROLL": {
         "message": "ROLL",
         "description": "Roll axis in capital letters"
@@ -1665,7 +1668,7 @@
         "message": "Signaling"
     },
     "receiverSettings": {
-        "message": "Receiver Settings"
+        "message": "Channel Range"
     },
     "receiverProtocol": {
         "message": "Receiver Protocol"
@@ -1734,7 +1737,7 @@
         "message": "These are values (in µs) by how much RC input can be different before it's considered non-zero. For transmitters with jitter on outputs, this value can be increased if RC inputs twitch while idle. <strong>This setting is for Yaw only.</strong>"
     },
     "receiverTelemetrySettings": {
-        "message": "Telemetry Settings"
+        "message": "Telemetry"
     },
     "receiverTelemetrySettingsSectionSignaling": {
         "message": "Signaling"
@@ -2163,10 +2166,10 @@
         "message": "Debug 7"
     },
     "receiverBars": {
-        "message": "Receiver Channels"
+        "message": "Channel Assignment"
     },
     "receiverBarsHelp": {
-        "message": "Shows the raw RC channels from the receiver exactly the way they are received. Please select the channel map, i.e. the current function for each RC channel."
+        "message": "Assign receiver channels to Rotorflight controls."
     },
     "receiverChannelOrder": {
         "message": "Channel Order Preset"
@@ -2194,6 +2197,9 @@
     },
     "receiverMspEnableButton": {
         "message": "Enable controls"
+    },
+    "resetModelPreviewOrientation": {
+        "message": "Reset"
     },
     "auxiliaryHelp": {
         "message": "Configure modes here using a combination of ranges and/or links to other modes (links supported on BF 4.0 and later). Use <strong>ranges</strong> to define the switches on your transmitter and corresponding mode assignments. A receiver channel that gives a reading between a range min/max will activate the mode. Use a <strong>link</strong> to activate a mode when another mode is activated. <strong>Exceptions:</strong> ARM cannot be linked to or from another mode, modes cannot be linked to other modes that are configured with a link (chained links). Multiple ranges/links can be used to activate any mode. If there is more than one range/link defined for a mode, each of them can be set to <strong>AND</strong> or <strong>OR</strong>. A mode will be activated when:<br />- ALL <strong>AND</strong> ranges/links are active; OR<br />- at least one <strong>OR</strong> range/link is active.<br /><br />Remember to save your settings using the Save button."

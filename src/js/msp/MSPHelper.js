@@ -2270,13 +2270,19 @@ MspHelper.prototype.crunch = function(code) {
  * Channels is an array of 16-bit unsigned integer channel values to be sent. 8 channels is probably the maximum.
  */
 MspHelper.prototype.setRawRx = function(channels) {
-    const buffer = [];
+    if (CONFIGURATOR.virtualMode) {
+        for (let i = 0; i < channels.length; i++) {
+            FC.RX_CHANNELS[i] = channels[i];
+        }
+    } else {
+        const buffer = [];
 
-    for (let i = 0; i < channels.length; i++) {
-        buffer.push16(channels[i]);
+        for (let i = 0; i < channels.length; i++) {
+            buffer.push16(channels[i]);
+        }
+
+        MSP.send_message(MSPCodes.MSP_SET_RAW_RC, buffer, false);
     }
-
-    MSP.send_message(MSPCodes.MSP_SET_RAW_RC, buffer, false);
 };
 
 /**

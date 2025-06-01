@@ -12,7 +12,13 @@
   <SubSection>
     <Field id="receiver-stick-center" label="receiverStickCenter">
       {#snippet tooltip()}
-        <Tooltip help="receiverHelpStickCenter" />
+        <Tooltip
+          help="receiverHelpStickCenter"
+          attrs={[
+            { name: "genericDefault", value: "1500μs" },
+            { name: "genericRange", value: "1400μs - 1600μs " },
+          ]}
+        />
       {/snippet}
       <NumberInput
         id="receiver-stick-center"
@@ -23,7 +29,13 @@
     </Field>
     <Field id="receiver-stick-deflection" label="receiverStickDeflection">
       {#snippet tooltip()}
-        <Tooltip help="receiverHelpStickDeflection" />
+        <Tooltip
+          help="receiverHelpStickDeflection"
+          attrs={[
+            { name: "genericDefault", value: "510μs" },
+            { name: "genericRange", value: "200μs - 700μs " },
+          ]}
+        />
       {/snippet}
       <NumberInput
         id="receiver-stick-deflection"
@@ -34,7 +46,13 @@
     </Field>
     <Field id="receiver-arm-throttle" label="receiverArmingThrottle">
       {#snippet tooltip()}
-        <Tooltip help="receiverHelpArmingThrottle" />
+        <Tooltip
+          help="receiverHelpArmingThrottle"
+          attrs={[
+            { name: "genericDefault", value: "1000μs" },
+            { name: "genericRange", value: "850μs - 1500μs " },
+          ]}
+        />
       {/snippet}
       <NumberInput
         id="receiver-arm-throttle"
@@ -45,7 +63,13 @@
     </Field>
     <Field id="receiver-zero-throttle" label="receiverZeroThrottle">
       {#snippet tooltip()}
-        <Tooltip help="receiverHelpZeroThrottle" />
+        <Tooltip
+          help="receiverHelpZeroThrottle"
+          attrs={[
+            { name: "genericDefault", value: "1070μs" },
+            { name: "genericRange", value: "850μs - 1500μs " },
+          ]}
+        />
       {/snippet}
       <NumberInput
         id="receiver-zero-throttle"
@@ -56,7 +80,13 @@
     </Field>
     <Field id="receiver-full-throttle" label="receiverFullThrottle">
       {#snippet tooltip()}
-        <Tooltip help="receiverHelpFullThrottle" />
+        <Tooltip
+          help="receiverHelpFullThrottle"
+          attrs={[
+            { name: "genericDefault", value: "2000μs" },
+            { name: "genericRange", value: "1500μs - 2150μs " },
+          ]}
+        />
       {/snippet}
       <NumberInput
         id="receiver-full-throttle"
@@ -67,7 +97,13 @@
     </Field>
     <Field id="receiver-cyclic-deadband" label="receiverCyclicDeadband">
       {#snippet tooltip()}
-        <Tooltip help="receiverHelpCyclicDeadband" />
+        <Tooltip
+          help="receiverHelpCyclicDeadband"
+          attrs={[
+            { name: "genericDefault", value: "2μs" },
+            { name: "genericRange", value: "0μs - 100μs " },
+          ]}
+        />
       {/snippet}
       <NumberInput
         id="receiver-cyclic-deadband"
@@ -78,7 +114,13 @@
     </Field>
     <Field id="receiver-yaw-deadband" label="receiverYawDeadband">
       {#snippet tooltip()}
-        <Tooltip help="receiverHelpYawDeadband" />
+        <Tooltip
+          help="receiverHelpYawDeadband"
+          attrs={[
+            { name: "genericDefault", value: "2μs" },
+            { name: "genericRange", value: "0μs - 100μs " },
+          ]}
+        />
       {/snippet}
       <NumberInput
         id="receiver-yaw-deadband"
