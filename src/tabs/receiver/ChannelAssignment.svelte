@@ -2,9 +2,6 @@
   import { FC } from "@/js/fc.svelte.js";
   import { i18n } from "@/js/i18n.js";
 
-  import Field from "@/components/Field.svelte";
-  import NumberInput from "@/components/NumberInput.svelte";
-  import Tooltip from "@/components/Tooltip.svelte";
   import Section from "@/components/Section.svelte";
   import SubSection from "@/components/SubSection.svelte";
   import Meter from "@/components/Meter.svelte";
@@ -44,9 +41,13 @@
     "controlAxisAux27",
   ];
 
-  const channels = $state([]);
-  FC.RC_MAP.length;
-  FC.RC.active_channels;
+  let rcmap = $state([0, 1, 2, 3, 4, 5, 6, 7]);
+
+  function swapAssignment(a, b) {
+    const current = rcmap[a];
+    rcmap[rcmap.indexOf(b)] = current;
+    rcmap[a] = b;
+  }
 </script>
 
 <Section label="receiverBars" summary="receiverBarsHelp">
@@ -54,8 +55,13 @@
     <div class="channel-group">
       {#each { length: FC.RC_MAP.length } as _, i (i)}
         <span>CH{i + 1}</span>
-        <span>{$i18n.t(channelNames[i])}</span>
-        <Meter leftLabel="left" value={100} rightLabel="right"/>
+        <select bind:value={() => rcmap[i], (x) => swapAssignment(i, x)}>
+          {#each channelNames.slice(0, FC.RC_MAP.length) as channel, i (i)}
+            <option value={i}>{$i18n.t(channel)}</option>
+          {/each}
+        </select>
+        <!-- <span>{$i18n.t(channelNames[i])}</span> -->
+        <Meter leftLabel="left" value={100} rightLabel="right" />
       {/each}
     </div>
   </SubSection>
@@ -68,5 +74,6 @@
     column-gap: var(--section-gap);
     row-gap: 8px;
     align-items: center;
+    padding: 4px;
   }
 </style>
