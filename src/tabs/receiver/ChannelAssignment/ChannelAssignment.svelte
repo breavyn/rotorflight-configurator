@@ -4,7 +4,7 @@
 
   import Section from "@/components/Section.svelte";
   import SubSection from "@/components/SubSection.svelte";
-  import Meter from "@/components/Meter.svelte";
+  import ChannelBar from "./ChannelBar.svelte";
 
   const channelNames = [
     "controlAxisRoll",
@@ -41,12 +41,14 @@
     "controlAxisAux27",
   ];
 
-  let rcmap = $state([0, 1, 2, 3, 4, 5, 6, 7]);
+  // FC.RC_MAP
+  // FC.RC.active_channels
+  // FC.RC.channels
 
   function swapAssignment(a, b) {
-    const current = rcmap[a];
-    rcmap[rcmap.indexOf(b)] = current;
-    rcmap[a] = b;
+    const current = FC.RC_MAP[a];
+    FC.RC_MAP[FC.RC_MAP.indexOf(b)] = current;
+    FC.RC_MAP[a] = b;
   }
 </script>
 
@@ -54,14 +56,20 @@
   <SubSection>
     <div class="channel-group">
       {#each { length: FC.RC_MAP.length } as _, i (i)}
-        <span>CH{i + 1}</span>
-        <select bind:value={() => rcmap[i], (x) => swapAssignment(i, x)}>
+        <span class="channel-index">{i + 1}</span>
+        <select bind:value={() => FC.RC_MAP[i], (x) => swapAssignment(i, x)}>
           {#each channelNames.slice(0, FC.RC_MAP.length) as channel, i (i)}
             <option value={i}>{$i18n.t(channel)}</option>
           {/each}
         </select>
         <!-- <span>{$i18n.t(channelNames[i])}</span> -->
-        <Meter leftLabel="left" value={100} rightLabel="right" />
+        <ChannelBar channel={i} />
+      {/each}
+      {#each { length: FC.RC.active_channels - FC.RC_MAP.length } as _, i (i)}
+        {@const channel = i + FC.RC_MAP.length}
+        <span class="channel-index">{channel + 1}</span>
+        <span class="channel-assignment">{$i18n.t(channelNames[channel])}</span>
+        <ChannelBar {channel} />
       {/each}
     </div>
   </SubSection>
@@ -75,5 +83,13 @@
     row-gap: 8px;
     align-items: center;
     padding: 4px;
+  }
+
+  .channel-index {
+    text-align: right;
+  }
+
+  .channel-assignment {
+    padding-left: 8px;
   }
 </style>

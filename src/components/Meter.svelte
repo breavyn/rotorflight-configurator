@@ -1,5 +1,7 @@
 <script>
   let { title, leftLabel, rightLabel, value, max } = $props();
+
+  let clampedVal = $derived(Math.min(Math.max(value, 0), 100));
 </script>
 
 <div>
@@ -10,7 +12,7 @@
   <div class="meter">
     <div class="left-label">{leftLabel}</div>
     <div class="right-label">{rightLabel}</div>
-    <div class="fill" style:width={`${value}%`}></div>
+    <div class="fill" style:width={`${clampedVal}%`}></div>
   </div>
 </div>
 
