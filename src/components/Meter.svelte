@@ -1,7 +1,5 @@
 <script>
   let { title, leftLabel, rightLabel, value, max } = $props();
-
-  let clampedVal = $derived(Math.min(Math.max(value, 0), 100));
 </script>
 
 <div>
@@ -12,7 +10,7 @@
   <div class="meter">
     <div class="left-label">{leftLabel}</div>
     <div class="right-label">{rightLabel}</div>
-    <div class="fill" style:width={`${clampedVal}%`}></div>
+    <div class="fill" style:width={`${value.clamp(0, 100)}%`}></div>
   </div>
 </div>
 
@@ -60,11 +58,11 @@
 
   .fill {
     position: absolute;
-    margin-top: -1px;
-    margin-left: -1px;
+    margin-top: -0.5px;
+    margin-left: -0.5px;
     top: 0px;
     left: 0px;
-    height: 21px;
+    height: 20px;
     border-radius: 2px;
 
     :global(html[data-theme="light"]) & {

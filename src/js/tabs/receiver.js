@@ -14,74 +14,6 @@ const tab = {
     stickButton: false,
     saveButtons: false,
     rcRPY: [ 0, 0, 0, ],
-    rcmap: [ 0, 1, 2, 3, 4, 5, 6, 7 ],
-    rcmapSize: 8,
-    axisLetters: ['A', 'E', 'R', 'C', 'T', '1', '2', '3'],
-    axisNames: [
-        { value: 0, text: 'controlAxisRoll' },
-        { value: 1, text: 'controlAxisPitch' },
-        { value: 2, text: 'controlAxisYaw' },
-        { value: 3, text: 'controlAxisCollective' },
-        { value: 4, text: 'controlAxisThrottle' },
-        { value: 5, text: 'controlAxisAux1' },
-        { value: 6, text: 'controlAxisAux2' },
-        { value: 7, text: 'controlAxisAux3' },
-        { value: 8, text: 'controlAxisAux4' },
-        { value: 9, text: 'controlAxisAux5' },
-        { value: 10, text: 'controlAxisAux6' },
-        { value: 11, text: 'controlAxisAux7' },
-        { value: 12, text: 'controlAxisAux8' },
-        { value: 13, text: 'controlAxisAux9' },
-        { value: 14, text: 'controlAxisAux10' },
-        { value: 15, text: 'controlAxisAux11' },
-        { value: 16, text: 'controlAxisAux12' },
-        { value: 17, text: 'controlAxisAux13' },
-        { value: 18, text: 'controlAxisAux14' },
-        { value: 19, text: 'controlAxisAux15' },
-        { value: 20, text: 'controlAxisAux16' },
-        { value: 21, text: 'controlAxisAux17' },
-        { value: 22, text: 'controlAxisAux18' },
-        { value: 23, text: 'controlAxisAux19' },
-        { value: 24, text: 'controlAxisAux20' },
-        { value: 25, text: 'controlAxisAux21' },
-        { value: 26, text: 'controlAxisAux22' },
-        { value: 27, text: 'controlAxisAux23' },
-        { value: 28, text: 'controlAxisAux24' },
-        { value: 29, text: 'controlAxisAux25' },
-        { value: 30, text: 'controlAxisAux26' },
-        { value: 31, text: 'controlAxisAux27' },
-    ],
-    rssiOptions: [
-        { value: 0,  text:'rssiOptionAUTO' },
-        { value: 1,  text:'rssiOptionADC'  },
-        { value: 6,  text:'controlAxisAux1' },
-        { value: 7,  text:'controlAxisAux2' },
-        { value: 8,  text:'controlAxisAux3' },
-        { value: 9,  text:'controlAxisAux4' },
-        { value: 10, text:'controlAxisAux5' },
-        { value: 11, text:'controlAxisAux6' },
-        { value: 12, text:'controlAxisAux7' },
-        { value: 13, text:'controlAxisAux8' },
-        { value: 14, text:'controlAxisAux9' },
-        { value: 15, text:'controlAxisAux10' },
-        { value: 16, text:'controlAxisAux11' },
-        { value: 17, text:'controlAxisAux12' },
-        { value: 18, text:'controlAxisAux13' },
-        { value: 19, text:'controlAxisAux14' },
-        { value: 20, text:'controlAxisAux15' },
-        { value: 21, text:'controlAxisAux16' },
-        { value: 22, text:'controlAxisAux17' },
-        { value: 23, text:'controlAxisAux18' },
-        { value: 24, text:'controlAxisAux19' },
-        { value: 25, text:'controlAxisAux20' },
-        { value: 26, text:'controlAxisAux21' },
-        { value: 27, text:'controlAxisAux22' },
-        { value: 28, text:'controlAxisAux23' },
-        { value: 29, text:'controlAxisAux24' },
-        { value: 30, text:'controlAxisAux25' },
-        { value: 31, text:'controlAxisAux26' },
-        { value: 32, text:'controlAxisAux27' },
-    ],
 };
 
 tab.initialize = function (callback) {
@@ -183,90 +115,11 @@ tab.initialize = function (callback) {
         }
 
     //// Channels Bars
-
-        function addChannelBar(parent, name, options) {
-            const elem = $('#receiverBarTemplate tr').clone();
-            elem.find('.name').text(name);
-            const chSelect = elem.find('.channel_select');
-            if (options) {
-                options.forEach((item) => {
-                    const text = i18n.getMessage(item.text);
-                    chSelect.append(`<option value="${item.value}">${text}</option>`);
-                });
-            } else {
-                chSelect.hide();
-            }
-            elem.find('.fill').css('width', '0%');
-            parent.append(elem);
-            return elem;
-        }
-
-        function updateChannelBar(elem, width, label1, label2) {
-            elem.find('.fill').css('width', width);
-            elem.find('.label1').text(label1);
-            elem.find('.label2').text(label2);
-        }
-
         self.mapChannels = FC.RC_MAP.length;
         self.numChannels = FC.RC.active_channels;
         self.barChannels = Math.min(self.numChannels, 18);
-        self.guiChannels = Math.max(self.barChannels, self.mapChannels);
 
         const chContainer = $('.tab-receiver .channels');
-
-        const channelElems = [];
-        const channelSelect = [];
-
-        for (let ch = 0; ch < self.guiChannels; ch++) {
-            if (ch < self.mapChannels) {
-                const elem = addChannelBar(chContainer, `CH${ch + 1}`, self.axisNames.slice(0, self.mapChannels));
-                channelElems.push(elem);
-
-                const chsel = elem.find('.channel_select');
-                channelSelect.push(chsel);
-
-                chsel.change(function () {
-                    const newAxis = parseInt(chsel.val());
-                    const oldAxis = self.rcmap.indexOf(ch);
-
-                    self.rcmap[oldAxis] = self.rcmap[newAxis];
-                    self.rcmap[newAxis] = ch;
-
-                    setRcMapGUI();
-                });
-            }
-            else {
-                const options = [ self.axisNames[ch] ];
-                const elem = addChannelBar(chContainer, `CH${ch + 1}`, options);
-                channelElems.push(elem);
-
-                const chsel = elem.find('.channel_select');
-                chsel.prop('disabled', true);
-            }
-        }
-
-
-    //// RSSI
-
-        // RSSI bar
-        const rssiBar = addChannelBar(chContainer, 'RSSI', self.rssiOptions.slice(0, self.numChannels - 3));
-        const rssiSelect = rssiBar.find('.channel_select');
-
-        rssiSelect.change(function() {
-            const value = parseInt(rssiSelect.val());
-            FC.FEATURE_CONFIG.features.setFeature('RSSI_ADC', value == 1);
-            FC.RSSI_CONFIG.channel = (value > 5) ? value : 0;
-        });
-
-        if (FC.FEATURE_CONFIG.features.isEnabled('RSSI_ADC')) {
-            rssiSelect.val(1);
-        }
-        else if (FC.RSSI_CONFIG.channel > 5) {
-            rssiSelect.val(FC.RSSI_CONFIG.channel);
-        }
-        else {
-            rssiSelect.val(0);
-        }
 
 
     //// RX Channels
@@ -309,28 +162,17 @@ tab.initialize = function (callback) {
             return result;
         }
 
-        function calcStickPercentage(axis, command) {
-            return (axis < 5) ? (command * 100).toFixed(1) + '%' : '';
-        }
-
         function updateBars() {
-            const meterScaleMin = 750;
-            const meterScaleMax = 2250;
             for (let ch = 0; ch < self.barChannels; ch++) {
-                const axis = (ch < self.mapChannels) ? self.rcmap.indexOf(ch) : ch;
+                const axis = (ch < self.mapChannels) ? FC.RC_MAP.indexOf(ch) : ch;
                 const pulse = FC.RX_CHANNELS[ch];
-                const width = (100 * (pulse - meterScaleMin) / (meterScaleMax - meterScaleMin)).clamp(0, 100) + '%';
                 const command = calcRcCommand(axis, pulse);
-                const percent = calcStickPercentage(axis, command);
-                updateChannelBar(channelElems[ch], width, pulse, percent);
                 if (axis < 3) {
                     // RPY used with the preview model
                     self.rcRPY[axis] = pulse ? 1500 + 500 * command : 0;
                 }
             }
 
-            const rssi = ((FC.ANALOG.rssi / 1023) * 100).toFixed(0) + '%';
-            updateChannelBar(rssiBar, rssi, FC.ANALOG.rssi, rssi);
         }
 
         self.resize = function () {
@@ -342,65 +184,6 @@ tab.initialize = function (callback) {
         };
 
         $(window).on('resize', self.resize).resize();
-
-
-    //// RCMAP
-
-        const rcmapInput = $('input[name="rcmap"]');
-        const rcmapPreset = $('select[name="rcmap_preset"]');
-
-        rcmapPreset.val(0);
-
-        function setRcMapGUI() {
-            const rcbuf = [];
-            for (let axis = 0; axis < self.mapChannels; axis++) {
-                const ch = self.rcmap[axis];
-                rcbuf[ch] = self.axisLetters[axis];
-                channelSelect[ch].val(axis);
-            }
-            rcmapInput.val(rcbuf.join(''));
-        }
-
-        rcmapInput.on('input', function () {
-            const val = rcmapInput.val();
-            if (val.length > self.mapChannels) {
-                rcmapInput.val(val.substring(0, self.mapChannels));
-            }
-        });
-
-        rcmapInput.on('change', function () {
-            const val = rcmapInput.val();
-
-            if (val.length != self.mapChannels) {
-                setRcMapGUI();
-                return false;
-            }
-
-            const rcvec = val.split('');
-            const rcmap = [];
-
-            for (let ch = 0; ch < self.mapChannels; ch++) {
-                const letter = rcvec[ch];
-                const axis = self.axisLetters.indexOf(letter);
-                if (axis < 0 || rcvec.slice(0,ch).indexOf(letter) >= 0) {
-                    setRcMapGUI();
-                    return false;
-                }
-                rcmap[axis] = ch;
-            }
-
-            self.rcmap = rcmap;
-            setRcMapGUI();
-
-            return true;
-        });
-
-        rcmapPreset.on('change', function () {
-            rcmapInput.val(rcmapPreset.val()).change();
-            rcmapPreset.val(0);
-        });
-
-        self.rcmap = FC.RC_MAP;
 
 
     //// Virtual Stick
@@ -457,16 +240,8 @@ tab.initialize = function (callback) {
         });
 
 
-    //// Update data
-
-        function updateConfig() {
-            FC.RC_MAP = self.rcmap;
-        }
-
-
     //// Main GUI
 
-        setRcMapGUI();
         updateButtons();
 
         self.initModelPreview();
@@ -478,7 +253,6 @@ tab.initialize = function (callback) {
         });
 
         self.save = function(callback) {
-            updateConfig();
             save_data(callback);
         };
 
@@ -498,16 +272,16 @@ tab.initialize = function (callback) {
             self.revert(() => GUI.tab_switch_reload());
         });
 
-        GUI.interval_add('receiver_pull', function () {
-            MSP.send_message(MSPCodes.MSP_BATTERY_STATE, false, false, function () {
-                MSP.send_message(MSPCodes.MSP_RX_CHANNELS, false, false, function () {
-                    MSP.send_message(MSPCodes.MSP_RC_COMMAND, false, false, updateBars);
-                });
-            });
+        GUI.interval_add('receiver_pull', async function () {
+            await MSP.promise(MSPCodes.MSP_BATTERY_STATE);
+            await MSP.promise(MSPCodes.MSP_RX_CHANNELS);
+            await MSP.promise(MSPCodes.MSP_RC_COMMAND);
+            await MSP.promise(MSPCodes.MSP_ANALOG);
+            updateBars();
         }, 25, false);
 
-        GUI.interval_add('status_pull', function () {
-            MSP.send_message(MSPCodes.MSP_STATUS);
+        GUI.interval_add('status_pull', async function () {
+            await MSP.promise(MSPCodes.MSP_STATUS);
         }, 250, true);
 
         GUI.content_ready(callback);
