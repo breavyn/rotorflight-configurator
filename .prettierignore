@@ -20,6 +20,7 @@
 !/src/js/tabs/failsafe.js
 !/src/js/tabs/gyro.js
 !/src/js/tabs/presets.js
+!/src/js/tabs/receiver.js
 !/src/js/virtual_fc.js
 !/src/tabs/gyro/filter_config.js
 !/src/tabs/presets/**/*

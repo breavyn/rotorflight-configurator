@@ -1,8 +1,12 @@
 <script>
   import diff from "microdiff";
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
+
+  import { i18n } from "@/js/i18n.js";
   import { FC } from "@/js/fc.svelte.js";
   import { Features } from "@/js/features.svelte";
+
+  import Page from "@/components/Page.svelte";
   import ReceiverSettings from "./ReceiverSettings.svelte";
   import ReceiverType from "./ReceiverType.svelte";
   import TelemetrySettings from "./TelemetrySettings.svelte";
@@ -14,29 +18,102 @@
     EXTERNAL_TELEMETRY_PROTOCOLS,
   } from "./protocols.js";
 
-  let { onchange } = $props();
-
+  let loading = $state(true);
   let initialState;
+  let sensorUpdateIntervalId;
 
   function snapshotState() {
     return $state.snapshot({
-      rc: FC.RC_CONFIG,
-      rx: FC.RX_CONFIG,
-      telemetry: FC.TELEMETRY_CONFIG,
+      RC_CONFIG: FC.RC_CONFIG,
+      RX_CONFIG: FC.RX_CONFIG,
+      TELEMETRY_CONFIG: FC.TELEMETRY_CONFIG,
       features: FC.FEATURE_CONFIG.features.bitfield,
     });
   }
 
-  onMount(() => {
-    initialState = snapshotState();
+  let changes = $derived.by(() => {
+    if (!initialState) {
+      return [];
+    }
+
+    return diff(initialState, snapshotState());
   });
 
-  $effect(() => {
-    const changes = diff(initialState, snapshotState());
-    if (changes.length > 0) {
-      onchange?.();
-    }
+  onMount(async () => {
+    await MSP.promise(MSPCodes.MSP_STATUS);
+    await MSP.promise(MSPCodes.MSP_FEATURE_CONFIG);
+    await MSP.promise(MSPCodes.MSP_RX_CONFIG);
+    await MSP.promise(MSPCodes.MSP_RX_MAP);
+    await MSP.promise(MSPCodes.MSP_RC_CONFIG);
+    await MSP.promise(MSPCodes.MSP_RC_TUNING);
+    await MSP.promise(MSPCodes.MSP_RSSI_CONFIG);
+    await MSP.promise(MSPCodes.MSP_MIXER_CONFIG);
+    await MSP.promise(MSPCodes.MSP_SERIAL_CONFIG);
+    await MSP.promise(MSPCodes.MSP_TELEMETRY_CONFIG);
+    await MSP.promise(MSPCodes.MSP_RC);
+
+    initialState = snapshotState();
+    loading = false;
+
+    sensorUpdateIntervalId = setInterval(async () => {
+      await MSP.promise(MSPCodes.MSP_BATTERY_STATE);
+      await MSP.promise(MSPCodes.MSP_RX_CHANNELS);
+      await MSP.promise(MSPCodes.MSP_RC_COMMAND);
+      await MSP.promise(MSPCodes.MSP_ANALOG);
+    }, 25);
   });
+
+  onDestroy(() => {
+    clearInterval(sensorUpdateIntervalId);
+  });
+
+  export async function onSave() {
+    function save(code) {
+      return MSP.promise(code, mspHelper.crunch(code));
+    }
+
+    await save(MSPCodes.MSP_SET_RX_MAP);
+    await save(MSPCodes.MSP_SET_RX_CONFIG);
+    await save(MSPCodes.MSP_SET_RC_CONFIG);
+    await save(MSPCodes.MSP_SET_RSSI_CONFIG);
+    await save(MSPCodes.MSP_SET_TELEMETRY_CONFIG);
+    await save(MSPCodes.MSP_SET_FEATURE_CONFIG);
+
+    await MSP.promise(MSPCodes.MSP_EEPROM_WRITE);
+    GUI.log($i18n.t("eepromSaved"));
+    MSP.send_message(MSPCodes.MSP_SET_REBOOT);
+    GUI.log($i18n.t("deviceRebooting"));
+    reinitialiseConnection();
+  }
+
+  export function onRevert() {
+    Object.assign(FC.RC_CONFIG, initialState.RC_CONFIG);
+    Object.assign(FC.RX_CONFIG, initialState.RX_CONFIG);
+    Object.assign(FC.TELEMETRY_CONFIG, initialState.TELEMETRY_CONFIG);
+    FC.FEATURE_CONFIG.features.bitfield = initialState.features;
+  }
+
+  export function isDirty() {
+    return changes.length > 0;
+  }
+
+  function onClickHelp() {
+    window.open(getTabHelpURL("tabReceiver"), "_system");
+  }
+
+  let showBindButton = $derived(
+    bit_check(
+      FC.CONFIG.targetCapabilities,
+      FC.TARGET_CAPABILITIES_FLAGS.SUPPORTS_RX_BIND,
+    ),
+  );
+
+  // TODO: Check gui is nwjs
+  let showSticksButton = $derived(FC.FEATURE_CONFIG.features.RX_MSP);
+
+  let showToolbar = $derived(
+    !loading && (changes.length > 0 || showSticksButton || showBindButton),
+  );
 
   const SERIALRX_FUNCTION = 64;
   let hasSerialRxPort = $derived(
@@ -145,22 +222,111 @@
   }
 </script>
 
-<div class="container">
-  <ReceiverType {FC} {rxProtoIndex} {hasSerialRxPort} {setRxProto} />
-  <ReceiverSettings {FC} />
-  {#if telemetry}
-    <TelemetrySettings {FC} {telemetry} {resetTelemetry} />
-    {#if FC.FEATURE_CONFIG.features.TELEMETRY && telemetry.type !== TelemetryType.TOGGLE}
-      <TelemetrySensors {FC} {telemetry} />
-    {/if}
+{#snippet header()}
+  <h1>{$i18n.t("tabReceiver")}</h1>
+  <div class="grow"></div>
+  <button class="help-btn" onclick={onClickHelp}>Help</button>
+{/snippet}
+
+{#snippet toolbar()}
+  {#if showSticksButton}
+    <button onclick={onRevert}>{$i18n.t("receiverButtonSticks")}</button>
   {/if}
-  <ChannelAssignment />
-</div>
+  {#if showBindButton}
+    <button onclick={onRevert}>{$i18n.t("receiverButtonBind")}</button>
+  {/if}
+  {#if changes.length > 0}
+    <button onclick={onRevert}>{$i18n.t("buttonRevert")}</button>
+    <button onclick={onSave}>
+      {$i18n.t("buttonSaveReboot")}
+    </button>
+  {/if}
+{/snippet}
+
+<Page {header} {loading} toolbar={showToolbar && toolbar}>
+  <div class="content">
+    <div class="column">
+      <ReceiverType {FC} {rxProtoIndex} {hasSerialRxPort} {setRxProto} />
+      <ReceiverSettings {FC} />
+      {#if telemetry}
+        <TelemetrySettings {FC} {telemetry} {resetTelemetry} />
+        {#if FC.FEATURE_CONFIG.features.TELEMETRY && telemetry.type !== TelemetryType.TOGGLE}
+          <TelemetrySensors {FC} {telemetry} />
+        {/if}
+      {/if}
+    </div>
+    <div class="column">
+      <ChannelAssignment />
+    </div>
+  </div>
+</Page>
 
 <style lang="scss">
-  .container {
-    > :global(*) + :global(*) {
-      margin-top: 24px;
+  .content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    column-gap: var(--section-gap);
+    row-gap: var(--section-gap);
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-gap);
+  }
+
+  .help-btn {
+    padding: 4px 8px;
+    min-width: 60px;
+  }
+
+  .grow {
+    flex-grow: 1;
+  }
+
+  button {
+    border-radius: 2px;
+    padding: 8px;
+    transition: var(--animation-speed);
+
+    :global(html[data-theme="light"]) & {
+      border: none;
+      color: var(--color-neutral-800);
+      background-color: var(--color-neutral-300);
+
+      &:hover {
+        background-color: var(--color-neutral-200);
+      }
+
+      &:active {
+        background-color: var(--color-neutral-400);
+      }
+
+      &:disabled {
+        color: var(--color-neutral-500);
+        background-color: var(--color-neutral-200);
+        cursor: not-allowed;
+      }
+    }
+
+    :global(html[data-theme="dark"]) & {
+      border: none;
+      color: var(--color-neutral-900);
+      background-color: var(--color-neutral-200);
+
+      &:hover {
+        background-color: var(--color-neutral-300);
+      }
+
+      &:active {
+        background-color: var(--color-neutral-400);
+      }
+
+      &:disabled {
+        color: var(--color-neutral-700);
+        background-color: var(--color-neutral-500);
+        cursor: not-allowed;
+      }
     }
   }
 </style>
