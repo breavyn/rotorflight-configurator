@@ -1668,7 +1668,7 @@
         "message": "Signaling"
     },
     "receiverSettings": {
-        "message": "Receiver Settings"
+        "message": "Channel Range"
     },
     "receiverProtocol": {
         "message": "Receiver Protocol"
@@ -1737,7 +1737,7 @@
         "message": "These are values (in µs) by how much RC input can be different before it's considered non-zero. For transmitters with jitter on outputs, this value can be increased if RC inputs twitch while idle. <strong>This setting is for Yaw only.</strong>"
     },
     "receiverTelemetrySettings": {
-        "message": "Telemetry Settings"
+        "message": "Telemetry"
     },
     "receiverTelemetrySettingsSectionSignaling": {
         "message": "Signaling"
