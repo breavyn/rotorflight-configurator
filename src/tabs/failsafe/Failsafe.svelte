@@ -6,11 +6,12 @@
   import { FC } from "@/js/fc.svelte.js";
   import { reinitialiseConnection } from "@/js/serial_backend";
 
-  import Page from "@/components/Page.svelte";
   import Field from "@/components/Field.svelte";
   import NumberInput from "@/components/NumberInput.svelte";
+  import Page from "@/components/Page.svelte";
   import Section from "@/components/Section.svelte";
   import SubSection from "@/components/SubSection.svelte";
+  import Tooltip from "@/components/Tooltip.svelte";
 
   let loading = $state(true);
   let initialState;
@@ -99,6 +100,14 @@
       <Section label="failsafePulsrangeTitle" summary="failsafePulsrangeHelp">
         <SubSection>
           <Field id="rx-pulse-min" label="failsafeRxMinUsecItem" unit="μs">
+            {#snippet tooltip()}
+              <Tooltip
+                attrs={[
+                  { name: "genericDefault", value: "885μs" },
+                  { name: "genericRange", value: "750μs - 2250μs " },
+                ]}
+              />
+            {/snippet}
             <NumberInput
               id="rx-pulse-min"
               min="750"
@@ -107,6 +116,14 @@
             />
           </Field>
           <Field id="rx-pulse-max" label="failsafeRxMaxUsecItem" unit="μs">
+            {#snippet tooltip()}
+              <Tooltip
+                attrs={[
+                  { name: "genericDefault", value: "2115μs" },
+                  { name: "genericRange", value: "750μs - 2250μs " },
+                ]}
+              />
+            {/snippet}
             <NumberInput
               id="rx-pulse-max"
               min="750"
