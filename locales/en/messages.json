@@ -25,6 +25,9 @@
     "genericDefault": {
         "message": "Default"
     },
+    "genericRange": {
+        "message": "Range"
+    },
     "axisROLL": {
         "message": "ROLL",
         "description": "Roll axis in capital letters"
