@@ -28,8 +28,8 @@
     container-type: size;
 
     :global(html[data-theme="light"]) & {
-      background: var(--color-neutral-800);
-      border: 1px solid var(--color-neutral-600);
+      background: var(--color-neutral-200);
+      border: 1px solid var(--color-neutral-400);
     }
 
     :global(html[data-theme="dark"]) & {
