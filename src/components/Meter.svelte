@@ -58,8 +58,8 @@
 
   .fill {
     position: absolute;
-    margin-top: -0.5px;
-    margin-left: -0.5px;
+    margin-top: -1px;
+    margin-left: -1px;
     top: 0px;
     left: 0px;
     height: 20px;
