@@ -6,6 +6,7 @@
   import { FC } from "@/js/fc.svelte.js";
   import { Features } from "@/js/features.svelte";
 
+  import ModelPreview from "@/components/ModelPreview.svelte";
   import Page from "@/components/Page.svelte";
   import ReceiverSettings from "./ReceiverSettings.svelte";
   import ReceiverType from "./ReceiverType.svelte";
@@ -257,6 +258,7 @@
     </div>
     <div class="column">
       <ChannelAssignment />
+      <ModelPreview />
     </div>
   </div>
 </Page>
