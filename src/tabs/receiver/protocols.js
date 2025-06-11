@@ -1,6 +1,6 @@
 import semver from "semver";
 import { API_VERSION_12_7, API_VERSION_12_8 } from "@/js/data_storage.js";
-import { FC } from "@/js/fc.svelte";
+import { FC } from "@/js/fc.svelte.js";
 import { createEnum } from "@/js/utils/common.js";
 import { CUSTOM_CRSF_SENSORS, NATIVE_CRSF_SENSORS } from "./telemetry/crsf.js";
 import { SMARTPORT_SENSORS } from "./telemetry/smartport.js";
