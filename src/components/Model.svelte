@@ -1,5 +1,5 @@
 <script>
-  import { onMount, onDestroy, tick } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import * as THREE from "three";
   import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
@@ -33,12 +33,13 @@
       return;
     }
 
+    renderer.setPixelRatio(globalThis.devicePixelRatio * 4);
     renderer.setSize(width, height);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     o.scene = new THREE.Scene();
     o.modelWrapper = new THREE.Object3D();
-    o.camera = new THREE.PerspectiveCamera(10, width / height, 1, 10000);
-    o.camera.position.z = 800;
+    o.camera = new THREE.PerspectiveCamera(20, width / height, 1, 1000);
+    o.camera.position.z = 600;
     o.light = new THREE.AmbientLight(0xffffff, 1.2);
     o.light2 = new THREE.DirectionalLight(new THREE.Color(1, 1, 1), 3.0);
     o.light2.position.set(0, 600, 800);
@@ -51,8 +52,7 @@
     o.model = await loadGLTF(`bell_${clockwise ? "cw" : "ccw"}`);
     o.modelWrapper.add(o.model);
     o.scene.add(o.modelWrapper);
-    await tick();
-    render();
+    resize(width, height);
   });
 
   onDestroy(() => {
@@ -93,7 +93,12 @@
   }
 
   export function rotateTo(x, y, z) {
-    if (!o.model) {
+    if (
+      !o.model ||
+      !Number.isFinite(x) ||
+      !Number.isFinite(y) ||
+      !Number.isFinite(z)
+    ) {
       return;
     }
 
@@ -104,13 +109,30 @@
   }
 
   export function rotateBy(x, y, z) {
-    if (!o.model) {
+    if (
+      !o.model ||
+      !Number.isFinite(x) ||
+      !Number.isFinite(y) ||
+      !Number.isFinite(z)
+    ) {
+      return;
+    }
+
+    if (x === 0 && y === 0 && z === 0) {
       return;
     }
 
     o.model.rotateX(x);
     o.model.rotateY(y);
     o.model.rotateZ(z);
+    render();
+  }
+
+  export function reset() {
+    o.model.rotation.x = 0;
+    o.model.rotation.y = 0;
+    o.model.rotation.z = 0;
+    o.modelWrapper.rotation.y = 0;
     render();
   }
 </script>
@@ -122,7 +144,6 @@
   bind:clientHeight={height}
 >
   <canvas bind:this={canvas} {width} {height} />
-  <button class="reset-btn">Reset</button>
   {#if error}
     <div class="webgl-error">WebGL Context Error</div>
   {/if}
@@ -131,12 +152,7 @@
 <style lang="scss">
   .container {
     position: relative;
-    height: 400px;
-    border-radius: 4px;
-
-    :global(html[data-theme="light"]) & {
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+    height: 100%;
   }
 
   .webgl-error {
@@ -147,44 +163,5 @@
     color: var(--mutedText);
     font-size: 16px;
     font-weight: 600;
-  }
-
-  canvas {
-    border-radius: 4px;
-  }
-
-  .reset-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 8px;
-    font-weight: 400;
-    font-size: 14px;
-    padding: 6px 12px;
-    transition: var(--animation-speed);
-
-    :global(html[data-theme="light"]) & {
-      color: var(--color-neutral-900);
-      background-color: var(--color-neutral-200);
-      border: 1px solid var(--color-neutral-400);
-    }
-
-    :global(html[data-theme="dark"]) & {
-      color: var(--color-neutral-100);
-      background-color: var(--color-neutral-800);
-      border: 1px solid var(--color-neutral-500);
-    }
-  }
-
-  @media (hover: hover) {
-    .reset-btn:hover {
-      :global(html[data-theme="light"]) & {
-        background-color: var(--color-neutral-300);
-      }
-
-      :global(html[data-theme="dark"]) & {
-        background-color: var(--color-neutral-700);
-      }
-    }
   }
 </style>
