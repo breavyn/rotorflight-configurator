@@ -5,6 +5,8 @@
   import { i18n } from "@/js/i18n.js";
   import { FC } from "@/js/fc.svelte.js";
   import { Features } from "@/js/features.svelte";
+  import { DarkTheme } from "@/js/DarkTheme.js";
+  import { windowWatcherUtil } from "@/js/utils/window_watchers.js";
 
   import ModelPreview from "./ModelPreview.svelte";
   import Page from "@/components/Page.svelte";
@@ -221,6 +223,53 @@
       resetTelemetry(currentProto.telemetry);
     }
   }
+
+  function showVirtualTx() {
+    const windowWidth = 370;
+    const windowHeight = 510;
+
+    // use a fully qualified url so nw doesn't look on the filesystem
+    // when using the vite dev server
+    const location = new URL(window.location.href);
+    location.pathname = "/src/tabs/receiver_msp.html";
+    nw.Window.open(
+      location.toString(),
+      {
+        id: "receiver_msp",
+        always_on_top: true,
+        max_width: windowWidth,
+        max_height: windowHeight,
+      },
+      function (createdWindow) {
+        createdWindow.resizeTo(windowWidth, windowHeight);
+
+        // Give the window a callback it can use to send the channels (otherwise it can't see those objects)
+        createdWindow.window.setRawRx = function (channels) {
+          if (
+            CONFIGURATOR.connectionValid &&
+            !["cli", "presets"].includes(GUI.active_tab)
+          ) {
+            const data = [];
+            FC.RC_MAP.forEach((axis, channel) => {
+              data[axis] = channels[channel];
+            });
+            mspHelper.setRawRx(data);
+            return true;
+          } else {
+            return false;
+          }
+        };
+
+        DarkTheme.isDarkThemeEnabled(function (isEnabled) {
+          windowWatcherUtil.passValue(
+            createdWindow.window,
+            "darkTheme",
+            isEnabled,
+          );
+        });
+      },
+    );
+  }
 </script>
 
 {#snippet header()}
@@ -231,7 +280,7 @@
 
 {#snippet toolbar()}
   {#if showSticksButton}
-    <button onclick={onRevert}>{$i18n.t("receiverButtonSticks")}</button>
+    <button onclick={showVirtualTx}>{$i18n.t("receiverButtonSticks")}</button>
   {/if}
   {#if showBindButton}
     <button onclick={onRevert}>{$i18n.t("receiverButtonBind")}</button>
