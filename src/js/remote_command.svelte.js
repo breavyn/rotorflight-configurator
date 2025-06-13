@@ -13,6 +13,9 @@ const MAX_AUX_COUNT = 27;
 function cyclic(channel) {
   const mappedChannel = FC.RC_MAP.indexOf(channel);
   const raw = FC.RX_CHANNELS[mappedChannel];
+  if (!raw) {
+    return null;
+  }
 
   const deadband = FC.RC_CONFIG.rc_deadband;
   const deflection = raw - FC.RC_CONFIG.rc_center;
@@ -49,6 +52,9 @@ export const RemoteCommand = {
   get yaw() {
     const mappedChannel = FC.RC_MAP.indexOf(CHANNELS.YAW);
     const raw = FC.RX_CHANNELS[mappedChannel];
+    if (!raw) {
+      return null;
+    }
 
     const deadband = FC.RC_CONFIG.rc_yaw_deadband;
     const deflection = raw - FC.RC_CONFIG.rc_center;
@@ -74,6 +80,9 @@ export const RemoteCommand = {
   get collective() {
     const mappedChannel = FC.RC_MAP.indexOf(CHANNELS.COLLECTIVE);
     const raw = FC.RX_CHANNELS[mappedChannel];
+    if (!raw) {
+      return null;
+    }
 
     const deflection = raw - FC.RC_CONFIG.rc_center;
     const range = FC.RC_CONFIG.rc_deflection;
@@ -86,6 +95,9 @@ export const RemoteCommand = {
   get throttle() {
     const mappedChannel = FC.RC_MAP.indexOf(CHANNELS.THROTTLE);
     const raw = FC.RX_CHANNELS[mappedChannel];
+    if (!raw) {
+      return null;
+    }
 
     const deflection = raw - FC.RC_CONFIG.rc_min_throttle;
     const range = FC.RC_CONFIG.rc_max_throttle - FC.RC_CONFIG.rc_min_throttle;
@@ -107,7 +119,14 @@ for (let i = 0; i < MAX_AUX_COUNT; i++) {
         mappedChannel = FC.RC_MAP.indexOf(i + 5);
       }
 
-      return FC.RX_CHANNELS[mappedChannel];
+      const raw = FC.RX_CHANNELS[mappedChannel];
+      if (!raw) {
+        return null;
+      }
+
+      return {
+        pwm: raw,
+      };
     },
   });
 }

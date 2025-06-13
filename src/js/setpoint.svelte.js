@@ -73,9 +73,14 @@ const curves = [
 
 export const Setpoint = {
   get roll() {
+    const input = RemoteCommand.roll?.percent;
+    if (!input) {
+      return null;
+    }
+
     const curve = curves[FC.RC_TUNING.rates_type];
     return curve(
-      RemoteCommand.roll.percent,
+      input,
       FC.RC_TUNING.roll_rate,
       FC.RC_TUNING.RC_RATE,
       FC.RC_TUNING.RC_EXPO,
@@ -84,9 +89,14 @@ export const Setpoint = {
     );
   },
   get pitch() {
+    const input = RemoteCommand.pitch?.percent;
+    if (!input) {
+      return null;
+    }
+
     const curve = curves[FC.RC_TUNING.rates_type];
     return curve(
-      RemoteCommand.pitch.percent,
+      input,
       FC.RC_TUNING.pitch_rate,
       FC.RC_TUNING.rcPitchRate,
       FC.RC_TUNING.RC_PITCH_EXPO,
@@ -95,9 +105,14 @@ export const Setpoint = {
     );
   },
   get yaw() {
+    const input = RemoteCommand.yaw?.percent;
+    if (!input) {
+      return null;
+    }
+
     const curve = curves[FC.RC_TUNING.rates_type];
     return curve(
-      RemoteCommand.yaw.percent,
+      input,
       FC.RC_TUNING.yaw_rate,
       FC.RC_TUNING.rcYawRate,
       FC.RC_TUNING.RC_YAW_EXPO,
