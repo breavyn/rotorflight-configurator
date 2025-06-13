@@ -30,6 +30,10 @@ function betaflightRates(x, rate, rcRate, rcExpo, superExpo, limit) {
 }
 
 function raceflightRates(x, rate, rcRate, rcExpo) {
+  rate *= 100;
+  rcRate *= 1000;
+  rcExpo *= 100;
+
   const expo = (1 + 0.01 * rcExpo * (x * x - 1.0)) * x;
   return expo * (rcRate + Math.abs(expo) * rcRate * rate * 0.01);
 }
