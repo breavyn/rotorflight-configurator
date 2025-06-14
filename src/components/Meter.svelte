@@ -58,21 +58,21 @@
 
   .fill {
     position: absolute;
-    margin-top: -1px;
-    margin-left: -1px;
-    top: 0px;
-    left: 0px;
     height: 20px;
     border-radius: 2px;
+    margin-left: -1px;
+    margin-top: -1px;
+    border-width: 1px;
+    border-style: solid;
 
     :global(html[data-theme="light"]) & {
-      background: var(--color-accent-600);
-      border: 1px solid var(--color-accent-500);
+      background: hsl(var(--fill-hue, var(--val-accent-hue)), 70%, 70%);
+      border-color: hsl(var(--fill-hue, var(--val-accent-hue)), 70%, 40%);
     }
 
     :global(html[data-theme="dark"]) & {
-      background: var(--color-accent-300);
-      border: 1px solid var(--color-accent-400);
+      background: hsl(var(--fill-hue, var(--val-accent-hue)), 40%, 40%);
+      border-color: hsl(var(--fill-hue, var(--val-accent-hue)), 60%, 50%);
     }
   }
 

@@ -8,6 +8,8 @@
   const min = 750;
   const max = 2250;
 
+  let hue = $derived((channel * 20).toString());
+
   let axis = $derived(
     // channel
     channel < FC.RC_MAP.length ? FC.RC_MAP.indexOf(channel) : channel,
@@ -67,7 +69,12 @@
   let rightLabel = $derived(axis <= 4 ? `${percent.toFixed(1)}%` : "");
 </script>
 
-<Meter leftLabel={FC.RX_CHANNELS[channel]} value={width} {rightLabel} />
+<Meter
+  --fill-hue={hue}
+  leftLabel={FC.RX_CHANNELS[channel]}
+  value={width}
+  {rightLabel}
+/>
 
 <style lang="scss">
 </style>

@@ -2169,7 +2169,7 @@
         "message": "Channel Assignment"
     },
     "receiverBarsHelp": {
-        "message": "Assign functions for each channel from the receiver."
+        "message": "Assign receiver channels to Rotorflight controls."
     },
     "receiverChannelOrder": {
         "message": "Channel Order Preset"
