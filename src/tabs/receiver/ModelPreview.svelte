@@ -56,6 +56,10 @@
     :global(html[data-theme="light"]) & {
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
+    :global(html[data-theme="dark"]) & {
+      border: 1px solid var(--color-neutral-700);
+    }
   }
 
   .reset-btn {

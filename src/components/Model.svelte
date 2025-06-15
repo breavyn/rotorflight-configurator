@@ -139,7 +139,7 @@
 
 <div
   bind:this={container}
-  class="container background_paper"
+  class="container"
   bind:clientWidth={width}
   bind:clientHeight={height}
 >
@@ -153,6 +153,68 @@
   .container {
     position: relative;
     height: 100%;
+
+    :global(html[data-theme="light"]) & {
+      background-color: var(--color-neutral-100);
+      background-image:
+        linear-gradient(
+          to right,
+          var(--color-neutral-400) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          to bottom,
+          var(--color-neutral-400) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          to right,
+          var(--color-neutral-300) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          to bottom,
+          var(--color-neutral-300) 1px,
+          transparent 1px
+        );
+      background-size:
+        100px 100px,
+        100px 100px,
+        20px 20px,
+        20px 20px;
+      background-position: center, center, center, center;
+    }
+
+    :global(html[data-theme="dark"]) & {
+      background-color: var(--color-neutral-900);
+      background-image:
+        linear-gradient(
+          to right,
+          var(--color-neutral-700) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          to bottom,
+          var(--color-neutral-700) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          to right,
+          var(--color-neutral-800) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          to bottom,
+          var(--color-neutral-800) 1px,
+          transparent 1px
+        );
+      background-size:
+        100px 100px,
+        100px 100px,
+        20px 20px,
+        20px 20px;
+      background-position: center, center, center, center;
+    }
   }
 
   .webgl-error {
