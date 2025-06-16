@@ -59,7 +59,6 @@
     loading = false;
 
     sensorUpdateIntervalId = setInterval(async () => {
-      await MSP.promise(MSPCodes.MSP_BATTERY_STATE);
       await MSP.promise(MSPCodes.MSP_RX_CHANNELS);
       await MSP.promise(MSPCodes.MSP_RC_COMMAND);
       await MSP.promise(MSPCodes.MSP_ANALOG);
