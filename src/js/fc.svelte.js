@@ -48,6 +48,7 @@ class FlightController {
   PIDS_ACTIVE = $state();
   PID_NAMES = $state();
   PID_PROFILE = $state();
+  PILOT_CONFIG = $state();
   RC = $state();
   RC_MAP = $state();
   RC_TUNING = $state();
@@ -738,6 +739,10 @@ class FlightController {
       slider_dterm_filter_multiplier:     0,
       slider_gyro_filter:                 0,
       slider_gyro_filter_multiplier:      0,
+    };
+
+    this.PILOT_CONFIG = {
+        model_id: 0,
     };
   }
 
