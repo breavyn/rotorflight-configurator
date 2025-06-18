@@ -862,6 +862,11 @@ MspHelper.prototype.process_data = function(dataHandler) {
                 break;
             }
 
+            case MSPCodes.MSP_PILOT_CONFIG: {
+                FC.PILOT_CONFIG.model_id = data.readU8();
+                break;
+            }
+
             case MSPCodes.MSP_SET_CHANNEL_FORWARDING: {
                 console.log('Channel forwarding saved');
                 break;

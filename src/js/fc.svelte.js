@@ -120,6 +120,7 @@ export const FC = $state({
             // NOOP, can't really be set. Maybe implement some logic?
         },
     },
+    PILOT_CONFIG: null,
     COPY_PROFILE: null,
     CURRENT_METERS: null,
     CURRENT_METER_CONFIGS: null,
@@ -785,6 +786,10 @@ export const FC = $state({
             slider_dterm_filter_multiplier:     0,
             slider_gyro_filter:                 0,
             slider_gyro_filter_multiplier:      0,
+        };
+
+        this.PILOT_CONFIG = {
+            model_id: 0,
         };
     },
 
