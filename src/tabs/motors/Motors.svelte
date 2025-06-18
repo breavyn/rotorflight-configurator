@@ -28,8 +28,9 @@
 
   function snapshotState() {
     return $state.snapshot({
-      RX_CONFIG: FC.RX_CONFIG,
-      RXFAIL_CONFIG: FC.RXFAIL_CONFIG,
+      MOTOR_CONFIG: FC.MOTOR_CONFIG,
+      GOVERNOR: FC.GOVERNOR,
+      ESC_SENSOR_CONFIG: FC.ESC_SENSOR_CONFIG,
       features: FC.FEATURE_CONFIG.features.bitfield,
     });
   }
@@ -45,17 +46,12 @@
 
   onMount(async () => {
     await MSP.promise(MSPCodes.MSP_STATUS);
-    await MSP.promise(MSPCodes.MSP_ARMING_CONFIG);
     await MSP.promise(MSPCodes.MSP_FEATURE_CONFIG);
-    await MSP.promise(MSPCodes.MSP_ADVANCED_CONFIG);
-    await MSP.promise(MSPCodes.MSP_BATTERY_CONFIG);
     await MSP.promise(MSPCodes.MSP_MIXER_CONFIG);
     await MSP.promise(MSPCodes.MSP_MOTOR_CONFIG);
     await MSP.promise(MSPCodes.MSP_MOTOR_OVERRIDE);
     await MSP.promise(MSPCodes.MSP_GOVERNOR_CONFIG);
-    await MSP.promise(MSPCodes.MSP_GOVERNOR_PROFILE);
     await MSP.promise(MSPCodes.MSP_ESC_SENSOR_CONFIG);
-    await MSP.promise(MSPCodes.MSP_SERIAL_CONFIG);
 
     initialState = snapshotState();
     loading = false;
@@ -67,8 +63,10 @@
     }
 
     await mspHelper.sendRxFailConfig();
-    await save(MSPCodes.MSP_SET_FAILSAFE_CONFIG);
-    await save(MSPCodes.MSP_SET_RX_CONFIG);
+    await save(MSPCodes.MSP_SET_FEATURE_CONFIG);
+    await save(MSPCodes.MSP_SET_MOTOR_CONFIG);
+    await save(MSPCodes.MSP_SET_GOVERNOR_CONFIG);
+    await save(MSPCodes.MSP_SET_ESC_SENSOR_CONFIG);
 
     await MSP.promise(MSPCodes.MSP_EEPROM_WRITE);
     GUI.log($i18n.t("eepromSaved"));
@@ -78,8 +76,9 @@
   }
 
   export function onRevert() {
-    Object.assign(FC.RX_CONFIG, initialState.RX_CONFIG);
-    Object.assign(FC.RXFAIL_CONFIG, initialState.RXFAIL_CONFIG);
+    Object.assign(FC.MOTOR_CONFIG, initialState.MOTOR_CONFIG);
+    Object.assign(FC.GOVERNOR, initialState.GOVERNOR);
+    Object.assign(FC.ESC_SENSOR_CONFIG, initialState.ESC_SENSOR_CONFIG);
     FC.FEATURE_CONFIG.features.bitfield = initialState.features;
   }
 
