@@ -92,7 +92,7 @@
     "sass-embedded": "^1.89.2",
     "semver": "^7.7.2",
     "sortablejs": "^1.15.6",
-    "svelte": "^5.34.5",
+    "svelte": "^5.34.7",
     "svelte-i18next": "^2.2.2",
     "three": "^0.177.0",
     "vinyl-source-stream": "^2.0.0",
