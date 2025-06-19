@@ -168,6 +168,12 @@ export function applyVirtualConfig() {
     totalSizeKB: 2048,
   });
 
+  Object.assign(FC.DEBUG_CONFIG, {
+    debugMode: 0,
+    debugAxis: 0,
+    debugModeCount: 83,
+  });
+
   FC.BEEPER_CONFIG.beepers = new Beepers(FC.CONFIG);
   FC.BEEPER_CONFIG.dshotBeaconConditions = new Beepers(FC.CONFIG, [
     "RX_LOST",
