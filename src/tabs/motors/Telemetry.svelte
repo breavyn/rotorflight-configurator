@@ -29,7 +29,7 @@
   let telemEnabled = $derived(FC.ESC_SENSOR_CONFIG.protocol > 0);
 </script>
 
-<Section label="Telemetry">
+<Section label="motorsEscTelemetry">
   <SubSection>
     <Field id="esc-telemetry-protocol" label="motorsEscTelemetryProtocol">
       {#snippet tooltip()}

@@ -15,7 +15,7 @@
   );
 </script>
 
-<Section label="RPM">
+<Section label="motorsSectionLabelRPM">
   <SubSection>
     <Field id="rpm-sensor" label="motorsRPMSensor">
       {#snippet tooltip()}

@@ -7,6 +7,8 @@
 
   let { index } = $props();
 
+  let overrideValue = $state(0);
+
   let width = $state(0);
   let mobile = $derived(width <= 480);
   let sliderDensity = $derived(mobile ? 10 : 5);
@@ -43,6 +45,7 @@
     if (!timeoutId) {
       timeoutId = setTimeout(() => {
         timeoutId = null;
+        FC.MOTOR_OVERRIDE[index] = overrideValue;
         mspHelper.sendMotorOverride(index);
       }, 100);
     }
@@ -56,12 +59,12 @@
     <div class="header">
       <span>Motor #{index + 1}</span>
       <span>-</span>
-      <span>{FC.MOTOR_OVERRIDE[index]}%</span>
+      <span>{overrideValue}%</span>
     </div>
   {/snippet}
   <div class="slider-container">
     <Slider
-      bind:value={FC.MOTOR_OVERRIDE[index]}
+      bind:value={overrideValue}
       onchange={updateThrottle}
       opts={{
         range: {
@@ -136,5 +139,19 @@
     @extend %section-header;
     padding-left: 8px;
     gap: 8px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    .header {
+      margin-top: 16px;
+
+      :global(html[data-theme="light"]) & {
+        background: none;
+      }
+
+      :global(html[data-theme="dark"]) & {
+        background: none;
+      }
+    }
   }
 </style>

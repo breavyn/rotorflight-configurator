@@ -25,7 +25,7 @@
   let isDshot = $derived(protocol >= 5 && protocol < 9);
 </script>
 
-<Section label="Throttle">
+<Section label="motorsSectionLabelThrottle">
   <SubSection>
     <Field id="esc-protocol" label="motorsEscProtocol">
       {#snippet tooltip()}

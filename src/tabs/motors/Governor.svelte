@@ -187,7 +187,7 @@
         />
       </Field>
     </SubSection>
-    <SubSection>
+    <SubSection label="Autorotation">
       <Field id="gov-auto-timeout" label="govAutoTimeout" unit="s">
         {#snippet tooltip()}
           <Tooltip
