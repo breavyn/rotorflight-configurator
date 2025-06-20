@@ -72,7 +72,7 @@
     }
 
     > :global(*) + :global(*) {
-      margin-top: 8px;
+      margin-top: 12px;
     }
   }
 
@@ -133,18 +133,6 @@
   @media only screen and (max-width: 480px) {
     .container {
       border-radius: 0px;
-    }
-
-    .header {
-      margin-top: 16px;
-
-      :global(html[data-theme="light"]) & {
-        background: none;
-      }
-
-      :global(html[data-theme="dark"]) & {
-        background: none;
-      }
     }
 
     .summary {
