@@ -140,7 +140,7 @@ export function applyVirtualConfig() {
   });
 
   Object.assign(FC.MOTOR_TELEMETRY_DATA, {
-    rpm: [19900],
+    rpm: [10_000],
   });
 
   FC.BEEPER_CONFIG.beepers = new Beepers(FC.CONFIG);
