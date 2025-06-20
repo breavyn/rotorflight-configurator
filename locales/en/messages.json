@@ -3337,7 +3337,7 @@
         "message": "Enable"
     },
     "govFeatures": {
-        "message": "Governor Features"
+        "message": "Governor"
     },
     "govProfile": {
         "message": "Governor Settings"
@@ -3352,7 +3352,7 @@
         "message": "<strong>OFF:</strong> Governor is disabled and the throttle from the Tx is passed through to the ESC.<br><br><strong>PASSTHROUGH:</strong> Throttle passthrough from the Tx, with slow spoolup and autorotation control.<br><br><strong>STANDARD:</strong> Motor speed is controlled by the FC. Equivalent to a typical ESC Governor.<br><br><strong>MODE1:</strong> Like STANDARD but with Collective and Cyclic Precompensation (i.e. collective changes are proactively changing the throttle, just like a throttle curve in the Tx).<br><br><strong>MODE2:</strong> Like MODE1, but with proactive battery voltage sag compensation. Requires fast voltage measurement."
     },
     "govHandoverThrottle": {
-        "message": "Handover throttle [%]"
+        "message": "Handover throttle"
     },
     "govHandoverThrottleHelp": {
         "message": "The throttle level above which the governor is activated. Below this level the input throttle is passed to the ESC - above this level the governor is enabled and the input throttle is used for calculating the target headspeed. The motor must be able to start below this throttle level."
@@ -3418,25 +3418,25 @@
         "message": "Timeout for missing headspeed signal, before spooling down. If the RPM signal returns within this timeout, the governor will perform a recovery spoolup."
     },
     "govHeadspeedFilterHz": {
-        "message": "Headspeed filter cutoff [Hz]"
+        "message": "Headspeed filter cutoff"
     },
     "govHeadspeedFilterHzHelp": {
         "message": "Cutoff for the headspeed lowpass filter."
     },
     "govVoltageFilterHz": {
-        "message": "Battery voltage filter cutoff [Hz]"
+        "message": "Battery voltage filter cutoff"
     },
     "govVoltageFilterHzHelp": {
         "message": "Cutoff for the battery voltage lowpass filter."
     },
     "govTTAFilterHz": {
-        "message": "TTA Bandwidth [Hz]"
+        "message": "TTA Bandwidth"
     },
     "govTTAFilterHzHelp": {
         "message": "Cutoff for the TTA lowpass filter."
     },
     "govFFFilterHz": {
-        "message": "Precomp Bandwidth [Hz]"
+        "message": "Precomp Bandwidth"
     },
     "govFFFilterHzHelp": {
         "message": "Cutoff for the cyclic/collective precompensation lowpass filter."
