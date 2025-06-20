@@ -1,5 +1,25 @@
 <script>
+  import { FC } from "@/js/fc.svelte.js";
   import { i18n } from "@/js/i18n.js";
+
+  let hardwareName = $derived.by(() => {
+    let name;
+    if (FC.CONFIG.targetName) {
+      name = FC.CONFIG.targetName;
+    } else {
+      name = FC.CONFIG.boardIdentifier;
+    }
+
+    if (FC.CONFIG.boardName && FC.CONFIG.boardName !== name) {
+      name = `${FC.CONFIG.boardName}(${name})`;
+    }
+
+    if (FC.CONFIG.manufacturerId) {
+      name = `${FC.CONFIG.manufacturerId}/${name}`;
+    }
+
+    return name;
+  });
 </script>
 
 <div class="logo">
@@ -13,9 +33,9 @@
         {FC.CONFIG.flightControllerIdentifier}
       </span>
     {/if}
-    {#if FC.CONFIG.hardwareName}
+    {#if hardwareName}
       <span>
-        {$i18n.t("versionLabelTarget")}: {FC.CONFIG.hardwareName}
+        {$i18n.t("versionLabelTarget")}: {hardwareName}
       </span>
     {/if}
   </div>
