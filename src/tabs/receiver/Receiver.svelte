@@ -295,12 +295,12 @@
 <Page {header} {loading} toolbar={showToolbar && toolbar}>
   <div class="content">
     <div class="column">
-      <ReceiverType {FC} {rxProtoIndex} {hasSerialRxPort} {setRxProto} />
-      <ReceiverSettings {FC} />
+      <ReceiverType {rxProtoIndex} {hasSerialRxPort} {setRxProto} />
+      <ReceiverSettings />
       {#if telemetry}
-        <TelemetrySettings {FC} {telemetry} {resetTelemetry} />
+        <TelemetrySettings {telemetry} {resetTelemetry} />
         {#if FC.FEATURE_CONFIG.features.TELEMETRY && telemetry.type !== TelemetryType.TOGGLE}
-          <TelemetrySensors {FC} {telemetry} />
+          <TelemetrySensors {telemetry} />
         {/if}
       {/if}
     </div>

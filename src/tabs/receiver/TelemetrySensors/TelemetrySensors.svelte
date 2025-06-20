@@ -1,4 +1,5 @@
 <script>
+  import { FC } from "@/js/fc.svelte.js";
   import { i18n } from "@/js/i18n.js";
   import Section from "@/components/Section.svelte";
   import SubSection from "@/components/SubSection.svelte";
@@ -7,7 +8,7 @@
   import SensorsOrderedList from "./SensorsOrderedList/SensorsOrderedList.svelte";
   import { TelemetryType } from "../protocols.js";
 
-  let { FC = $bindable(), telemetry } = $props();
+  let { telemetry } = $props();
 
   let view = $state(1);
 </script>

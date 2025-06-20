@@ -1,6 +1,7 @@
 <script>
   import semver from "semver";
   import { slide } from "svelte/transition";
+  import { FC } from "@/js/fc.svelte.js";
   import { API_VERSION_12_7 } from "@/js/data_storage.js";
   import Field from "@/components/Field.svelte";
   import NumberInput from "@/components/NumberInput.svelte";
@@ -9,7 +10,7 @@
   import Switch from "@/components/Switch.svelte";
   import Tooltip from "@/components/Tooltip.svelte";
 
-  let { FC = $bindable(), telemetry, resetTelemetry } = $props();
+  let { telemetry, resetTelemetry } = $props();
   let enabled = $derived(FC.FEATURE_CONFIG.features.TELEMETRY);
   let crsfSettings = $derived(
     telemetry.proto === "crsf" &&
