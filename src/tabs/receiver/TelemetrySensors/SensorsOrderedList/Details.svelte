@@ -53,4 +53,10 @@
       }
     }
   }
+
+  @media only screen and (max-width: 480px) {
+    .summary {
+      height: 3rem;
+    }
+  }
 </style>
