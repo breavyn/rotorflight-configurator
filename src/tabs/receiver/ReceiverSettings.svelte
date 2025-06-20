@@ -1,11 +1,10 @@
 <script>
+  import { FC } from "@/js/fc.svelte.js";
   import Field from "@/components/Field.svelte";
   import NumberInput from "@/components/NumberInput.svelte";
   import Tooltip from "@/components/Tooltip.svelte";
   import Section from "@/components/Section.svelte";
   import SubSection from "@/components/SubSection.svelte";
-
-  let { FC = $bindable() } = $props();
 </script>
 
 <Section label="receiverSettings">
