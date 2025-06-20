@@ -96,4 +96,21 @@
       }
     }
   }
+
+  @media only screen and (max-width: 480px) {
+    .container {
+      margin-top: 48px;
+      border-radius: 0;
+      border-top-width: 1px;
+      border-style: solid;
+
+      :global(html[data-theme="light"]) & {
+        border-top-color: var(--color-neutral-400);
+      }
+
+      :global(html[data-theme="dark"]) & {
+        border-top-color: var(--color-neutral-700);
+      }
+    }
+  }
 </style>
