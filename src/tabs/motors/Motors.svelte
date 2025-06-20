@@ -21,6 +21,11 @@
   let isDshot = $derived(protocol >= 5 && protocol < 9);
   let isEnabled = $derived(protocol < 9 && FC.CONFIG.motorCount > 0);
 
+  let rpmAvailable = $derived(
+    FC.FEATURE_CONFIG.features.FREQ_SENSOR ||
+      (isDshot && FC.ESC_SENSOR_CONFIG.use_dshot_telemetry),
+  );
+
   function snapshotState() {
     return $state.snapshot({
       RX_CONFIG: FC.RX_CONFIG,
@@ -112,7 +117,9 @@
     </div>
     <div class="column">
       {#if isEnabled}
-        <RotorSpeed />
+        {#if rpmAvailable}
+          <RotorSpeed />
+        {/if}
         <Override />
       {/if}
     </div>

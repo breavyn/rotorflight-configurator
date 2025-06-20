@@ -1,6 +1,5 @@
 <script>
   import { FC } from "@/js/fc.svelte.js";
-  import { i18n } from "@/js/i18n.js";
   import Field from "@/components/Field.svelte";
   import Section from "@/components/Section.svelte";
   import SubSection from "@/components/SubSection.svelte";
@@ -91,7 +90,7 @@
         </div>
       </Field>
 
-      {#each { length: FC.CONFIG.motorCount } as _, i}
+      {#each { length: FC.CONFIG.motorCount } as _, i (i)}
         <Field
           id={`motor-poles-${i + 1}`}
           label={`motorsMotorPoles${i + 1}Long`}

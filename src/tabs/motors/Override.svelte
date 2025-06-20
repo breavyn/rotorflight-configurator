@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { untrack } from "svelte";
   import { FC } from "@/js/fc.svelte.js";
   import Field from "@/components/Field.svelte";
   import Section from "@/components/Section.svelte";
@@ -11,18 +11,9 @@
   let isEnabled = $state(false);
 
   $effect(() => {
-    console.log("effect", isEnabled);
+    // call resetMotorOverrides each time isEnabled is modified
     isEnabled;
-    onEnable();
-  });
-
-  function onEnable(checked) {
-    console.log("resetMotorOverrides");
-    mspHelper.resetMotorOverrides();
-  }
-
-  onMount(() => {
-    console.log("Override onMount");
+    untrack(() => mspHelper.resetMotorOverrides());
   });
 </script>
 

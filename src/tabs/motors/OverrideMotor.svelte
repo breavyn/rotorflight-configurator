@@ -1,4 +1,5 @@
 <script>
+  import { onDestroy } from "svelte";
   import { FC } from "@/js/fc.svelte.js";
   import Section from "@/components/Section.svelte";
   import Meter from "@/components/Meter.svelte";
@@ -30,18 +31,38 @@
   let currentMax = $state(10);
   let temp1Max = $state(100);
   let temp2Max = $state(100);
+
+  let timeoutId;
+
+  onDestroy(() => {
+    clearTimeout(timeoutId);
+    timeoutId = null;
+  });
+
+  function updateThrottle() {
+    if (!timeoutId) {
+      timeoutId = setTimeout(() => {
+        timeoutId = null;
+        mspHelper.sendMotorOverride(index);
+      }, 100);
+    }
+  }
 </script>
 
 <svelte:window bind:innerWidth={width} />
 
-<Section label={`Motor #${index + 1} - Throttle ${FC.MOTOR_OVERRIDE[index]}%`}>
+<Section>
+  {#snippet header()}
+    <div class="header">
+      <span>Motor #{index + 1}</span>
+      <span>-</span>
+      <span>{FC.MOTOR_OVERRIDE[index]}%</span>
+    </div>
+  {/snippet}
   <div class="slider-container">
     <Slider
       bind:value={FC.MOTOR_OVERRIDE[index]}
-      onchange={() => {
-      console.log("onchange", FC.MOTOR_OVERRIDE[index])
-        mspHelper.sendMotorOverride(index);
-      }}
+      onchange={updateThrottle}
       opts={{
         range: {
           min: 0,
@@ -109,5 +130,11 @@
   .slider-container {
     margin-bottom: 20px;
     padding: 16px;
+  }
+
+  .header {
+    @extend %section-header;
+    padding-left: 8px;
+    gap: 8px;
   }
 </style>

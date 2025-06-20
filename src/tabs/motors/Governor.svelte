@@ -40,7 +40,7 @@
         <Tooltip help="motorsEscProtocolHelp" />
       {/snippet}
       <select id="gov-mode" bind:value={FC.GOVERNOR.gov_mode}>
-        {#each govModes as mode, index}
+        {#each govModes as mode, index (mode)}
           <option value={index}>{mode}</option>
         {/each}
       </select>

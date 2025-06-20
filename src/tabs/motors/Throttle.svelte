@@ -1,6 +1,5 @@
 <script>
   import { FC } from "@/js/fc.svelte.js";
-  import { i18n } from "@/js/i18n.js";
   import Field from "@/components/Field.svelte";
   import Section from "@/components/Section.svelte";
   import SubSection from "@/components/SubSection.svelte";
@@ -33,7 +32,7 @@
         <Tooltip help="motorsEscProtocolHelp" />
       {/snippet}
       <select id="esc-protocol" bind:value={FC.MOTOR_CONFIG.motor_pwm_protocol}>
-        {#each escProtocols as proto, index}
+        {#each escProtocols as proto, index (proto)}
           <option value={index}>{proto}</option>
         {/each}
       </select>

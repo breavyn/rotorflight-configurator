@@ -2,7 +2,6 @@
   import semver from "semver";
 
   import { FC } from "@/js/fc.svelte.js";
-  import { i18n } from "@/js/i18n.js";
   import Field from "@/components/Field.svelte";
   import Section from "@/components/Section.svelte";
   import SubSection from "@/components/SubSection.svelte";
@@ -40,7 +39,7 @@
         id="esc-telemetry-protocol"
         bind:value={FC.ESC_SENSOR_CONFIG.protocol}
       >
-        {#each telemetryProtocols as proto, index}
+        {#each telemetryProtocols as proto, index (proto)}
           <option value={index}>{proto}</option>
         {/each}
       </select>
@@ -107,7 +106,11 @@
             bind:value={FC.ESC_SENSOR_CONFIG.current_correction}
           />
         </Field>
-        <Field id="consumption-correction" label="motorsConsumptionCorrection" unit="%">
+        <Field
+          id="consumption-correction"
+          label="motorsConsumptionCorrection"
+          unit="%"
+        >
           {#snippet tooltip()}
             <Tooltip
               help="motorsConsumptionCorrectionHelp"
