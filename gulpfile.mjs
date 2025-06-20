@@ -24,7 +24,7 @@ import * as vite from "vite";
 import pkg from "./package.json" with { type: "json" };
 // Replace dev mode paths
 pkg.main = "src/main.html";
-pkg.window.icon = "images/rf_icon.png";
+pkg.window.icon = "public/images/rf_icon.png";
 delete pkg["node-remote"];
 
 const { cordova } = cordovaPkg;
@@ -156,11 +156,11 @@ function build_app_nwjs() {
 
   const platformOpts = {
     osx: {
-      icon: "./src/images/rf_icon.icns",
+      icon: "./public/images/rf_icon.icns",
       CFBundleDisplayName: "Rotorflight Configurator",
     },
     win: {
-      icon: "./src/images/rf_icon.ico",
+      icon: "./public/images/rf_icon.ico",
     },
   };
 
