@@ -269,6 +269,11 @@
       },
     );
   }
+
+  function onBind() {
+    MSP.send_message(MSPCodes.MSP2_BETAFLIGHT_BIND);
+    GUI.log(i18n.getMessage("receiverButtonBindMessage"));
+  }
 </script>
 
 {#snippet header()}
@@ -282,7 +287,7 @@
     <button onclick={showVirtualTx}>{$i18n.t("receiverButtonSticks")}</button>
   {/if}
   {#if showBindButton}
-    <button onclick={onRevert}>{$i18n.t("receiverButtonBind")}</button>
+    <button onclick={onBind}>{$i18n.t("receiverButtonBind")}</button>
   {/if}
   {#if changes.length > 0}
     <button onclick={onRevert}>{$i18n.t("buttonRevert")}</button>
