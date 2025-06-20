@@ -28,12 +28,14 @@
     container-type: size;
 
     :global(html[data-theme="light"]) & {
-      background: var(--color-neutral-200);
+      color: var(--color-neutral-700);
+      background-color: var(--color-neutral-200);
       border: 1px solid var(--color-neutral-400);
     }
 
     :global(html[data-theme="dark"]) & {
-      background: var(--color-neutral-700);
+      color: var(--color-neutral-100);
+      background-color: var(--color-neutral-700);
       border: 1px solid var(--color-neutral-400);
     }
   }
