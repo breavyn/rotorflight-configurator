@@ -10,7 +10,7 @@
   <div class="meter">
     <div class="left-label">{leftLabel}</div>
     <div class="right-label">{rightLabel}</div>
-    <div class="fill" style:width={`${value.clamp(0, 100)}%`}></div>
+    <div class="fill" style:width={`${(value ?? 0).clamp(0, 100)}%`}></div>
   </div>
 </div>
 
