@@ -3181,13 +3181,13 @@
         "message": "Your ESC Telemetry protocol. Connect the telemetry wire from the ESC to your FC. Specify which UART to use for ESC Telemetry in the <i>Configuration</i> tab."
     },
     "motorsEscTelemetryHalfDuplex": {
-        "message": "One-wire Communication (Half-Duplex)"
+        "message": "Half-Duplex"
     },
     "motorsEscTelemetryHalfDuplexHelp": {
         "message": "Use the Tx pin for both sending and receiving. Required for forward programming of supported ESCs (e.g. Hobbywing Platinum V5 or Scorpion Tribunus)."
     },
     "motorsEscTelemetryPinswap": {
-        "message": "Rx/Tx Pin Swap"
+        "message": "Pin Swap"
     },
     "motorsEscTelemetryPinswapHelp": {
         "message": "Swaps the Rx and Tx pins. Note: this option is NOT supported on F4 MCUs, see help."
@@ -3229,16 +3229,16 @@
         "message": "Gear ratio between the tail rotor and the main rotor. Use <span class=\"value\">tail gear</span> : <span class=\"value\">autorotation gear</span> tooth count for Torque Tube, or <span class=\"value\">tail pulley</span> : <span class=\"value\">front pulley</span> for a belt tail. For a direct drive tail, use <span class=\"value\">1</span> : <span class=\"value\">1</span>"
     },
     "motorsMotorPoles1Long": {
-        "message": "Main Motor pole count"
+        "message": "Main Motor Pole Count"
     },
     "motorsMotorPoles2Long": {
-        "message": "Tail Motor pole count"
+        "message": "Tail Motor Pole Count"
     },
     "motorsMotorPoles3Long": {
-        "message": "Motor M3 pole count"
+        "message": "Motor M3 Pole Count"
     },
     "motorsMotorPoles4Long": {
-        "message": "Motor M4 pole count"
+        "message": "Motor M4 Pole Count"
     },
     "motorsMotorPolesHelp": {
         "message": "The <i>pole count</i> is the number of magnets on the motor bell. The manual should give this number. Or you can count the magnets. Do NOT count the stators with the copper wire windings."
@@ -3268,19 +3268,19 @@
         "message": "<span class=\"message-negative\">Warning:</span> <i>Tail Rotor Gear Ratio</i> is set to an incorrect value. Please check!"
     },
     "motorsVoltageCorrection": {
-        "message": "Voltage Correction"
+        "message": "Voltage"
     },
     "motorsVoltageCorrectionHelp": {
         "message": "Adjusts the Voltage reported by the ESC's telemetry."
     },
     "motorsCurrentCorrection": {
-        "message": "Current Correction"
+        "message": "Current"
     },
     "motorsCurrentCorrectionHelp": {
         "message": "Adjusts the Current reported by the ESC's telemetry."
     },
     "motorsConsumptionCorrection": {
-        "message": "Consumption Correction"
+        "message": "Consumption"
     },
     "motorsConsumptionCorrectionHelp": {
         "message": "Adjusts the Consumption reported by the ESC's telemetry."
@@ -3305,9 +3305,6 @@
     },
     "motorInfo4": {
         "message": "Motor #4"
-    },
-    "motorOverride": {
-        "message": "Override"
     },
     "motorThrottle": {
         "message": "Throttle:"
@@ -3334,16 +3331,22 @@
         "message": "Errors:"
     },
     "motorOverrideNote": {
-        "message": "<strong>Note.</strong> Throttle Override forces the output throttle to an arbitrary value for setup and testing purposes. The override values are not saved, and will be reset in reboot.<br/><br/><strong class=\"message-negative\">MOTOR THROTTLE OVERRIDE WILL MAKE THE MOTORS TO SPOOL UP!</strong>"
+        "message": "Throttle Override sets the throttle output to an arbitrary value for setup and testing purposes. The override values are not saved, and will be reset after reboot.<br/><br/><strong>THROTTLE OVERRIDE WILL MAKE THE MOTORS SPOOL UP!</strong>"
     },
     "motorOverrideTitle": {
         "message": "Throttle Override"
     },
-    "motorOverrideEnable": {
-        "message": "Enable"
-    },
     "govFeatures": {
         "message": "Governor"
+    },
+    "govSectionRampTime": {
+        "message": "Ramp Time"
+    },
+    "govSectionAutorotation": {
+        "message": "Autorotation"
+    },
+    "govSectionFilters": {
+        "message": "Filters"
     },
     "govProfile": {
         "message": "Governor Settings"
@@ -3364,13 +3367,13 @@
         "message": "The throttle level above which the governor is activated. Below this level the input throttle is passed to the ESC - above this level the governor is enabled and the input throttle is used for calculating the target headspeed. The motor must be able to start below this throttle level."
     },
     "govStartupTime": {
-        "message": "Startup time"
+        "message": "Startup Time"
     },
     "govStartupTimeHelp": {
         "message": "Time constant for slow startup, in seconds, measuring the time from zero to full headspeed."
     },
     "govSpoolupTime": {
-        "message": "Spoolup time"
+        "message": "Spoolup Time"
     },
     "govSpoolupTimeHelp": {
         "message": "Time constant for slow spoolup, in seconds, measuring the time from zero to full headspeed."
@@ -3382,13 +3385,13 @@
         "message": "Minimum throttle to be used during spoolup. For electric motors the default is 5%, for nitro this should be set so the clutch starts to engage for a smooth spoolup 10-15%."
     },
     "govTrackingTime": {
-        "message": "Tracking time"
+        "message": "Tracking Time"
     },
     "govTrackingTimeHelp": {
         "message": "Time constant for headspeed changes, in seconds, measuring the time from zero to full headspeed."
     },
     "govRecoveryTime": {
-        "message": "Recovery time"
+        "message": "Recovery Time"
     },
     "govRecoveryTimeHelp": {
         "message": "Time constant for recovery spoolup, in seconds, measuring the time from zero to full headspeed."
@@ -3400,13 +3403,13 @@
         "message": "Time constant for autorotation bailout spoolup, in seconds, measuring the time from zero to full headspeed."
     },
     "govAutoTimeout": {
-        "message": "Timeout"
+        "message": "Exit Timeout"
     },
     "govAutoTimeoutHelp": {
-        "message": "Timeout for ending autorotation and moving to normal IDLE."
+        "message": "Timeout for exiting autorotation and moving to normal IDLE."
     },
     "govAutoMinEntryTime": {
-        "message": "Minimum Entry Time"
+        "message": "Minimum Flight Time"
     },
     "govAutoMinEntryTimeHelp": {
         "message": "Minimum flight time before autorotation can be engaged."
@@ -3424,13 +3427,13 @@
         "message": "Timeout for missing headspeed signal, before spooling down. If the RPM signal returns within this timeout, the governor will perform a recovery spoolup."
     },
     "govHeadspeedFilterHz": {
-        "message": "Headspeed filter cutoff"
+        "message": "Headspeed Filter Cutoff"
     },
     "govHeadspeedFilterHzHelp": {
         "message": "Cutoff for the headspeed lowpass filter."
     },
     "govVoltageFilterHz": {
-        "message": "Battery voltage filter cutoff"
+        "message": "Battery Voltage Filter Cutoff"
     },
     "govVoltageFilterHzHelp": {
         "message": "Cutoff for the battery voltage lowpass filter."

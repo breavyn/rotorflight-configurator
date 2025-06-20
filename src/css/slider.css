@@ -199,9 +199,6 @@ html[data-theme="dark"] .noUi-target[disabled] .noUi-handle:after {
     inset 0 1px 1px #f0f0f0,
     0 3px 6px -5px #bbb;
 }
-.svelte-slide-connects {
-  border-radius: 2px;
-}
 .svelte-slide-connect {
   background: #3fb8af;
 }
@@ -442,6 +439,7 @@ html[data-theme="dark"] .noUi-target[disabled] .noUi-handle:after {
 
 .svelte-slide-value-horizontal {
   margin-top: 5px;
+  color: var(--color-slider-text);
 }
 
 .svelte-slide-marker {

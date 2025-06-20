@@ -111,7 +111,7 @@
   </SubSection>
 
   {#if enabled}
-    <SubSection>
+    <SubSection label="govSectionRampTime">
       <Field id="gov-startup-time" label="govStartupTime" unit="s">
         {#snippet tooltip()}
           <Tooltip
@@ -186,8 +186,26 @@
           bind:value={fields.gov_recovery_time}
         />
       </Field>
+      <Field id="gov-auto-bailout-time" label="govAutoBailoutTime" unit="s">
+        {#snippet tooltip()}
+          <Tooltip
+            help="govAutoBailoutTimeHelp"
+            attrs={[
+              { name: "genericDefault", value: "0s" },
+              { name: "genericRange", value: "0s - 10s" },
+            ]}
+          />
+        {/snippet}
+        <NumberInput
+          id="gov-auto-bailout-time"
+          min="0"
+          max="10"
+          step="0.1"
+          bind:value={fields.gov_autorotation_bailout_time}
+        />
+      </Field>
     </SubSection>
-    <SubSection label="Autorotation">
+    <SubSection label="govSectionAutorotation">
       <Field id="gov-auto-timeout" label="govAutoTimeout" unit="s">
         {#snippet tooltip()}
           <Tooltip
@@ -207,26 +225,6 @@
           bind:value={fields.gov_autorotation_timeout}
         />
       </Field>
-
-      <Field id="gov-auto-bailout-time" label="govAutoBailoutTime" unit="s">
-        {#snippet tooltip()}
-          <Tooltip
-            help="govAutoBailoutTimeHelp"
-            attrs={[
-              { name: "genericDefault", value: "0s" },
-              { name: "genericRange", value: "0s - 10s" },
-            ]}
-          />
-        {/snippet}
-        <NumberInput
-          id="gov-auto-bailout-time"
-          min="0"
-          max="10"
-          step="0.1"
-          bind:value={fields.gov_autorotation_bailout_time}
-        />
-      </Field>
-
       <Field id="gov-auto-min-entry-time" label="govAutoMinEntryTime" unit="s">
         {#snippet tooltip()}
           <Tooltip
@@ -246,7 +244,7 @@
         />
       </Field>
     </SubSection>
-    <SubSection>
+    <SubSection label="govSectionFilters">
       <Field id="gov-headspeed-filter" label="govHeadspeedFilterHz" unit="Hz">
         {#snippet tooltip()}
           <Tooltip
@@ -264,7 +262,6 @@
           bind:value={FC.GOVERNOR.gov_rpm_filter}
         />
       </Field>
-
       <Field id="gov-voltage-filter" label="govVoltageFilterHz" unit="Hz">
         {#snippet tooltip()}
           <Tooltip
@@ -282,7 +279,6 @@
           bind:value={FC.GOVERNOR.gov_pwr_filter}
         />
       </Field>
-
       <Field id="gov-tta-filter" label="govTTAFilterHz" unit="Hz">
         {#snippet tooltip()}
           <Tooltip
@@ -300,7 +296,6 @@
           bind:value={FC.GOVERNOR.gov_tta_filter}
         />
       </Field>
-
       <Field id="gov-ff-filter" label="govFFFilterHz" unit="Hz">
         {#snippet tooltip()}
           <Tooltip

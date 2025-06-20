@@ -9,15 +9,25 @@
   import OverrideMotor from "./OverrideMotor.svelte";
 
   let isEnabled = $state(false);
+  let pollerInterval;
 
   $effect(() => {
     // call resetMotorOverrides each time isEnabled is modified
-    isEnabled;
+    if (!isEnabled) {
+      clearInterval(pollerInterval);
+      pollerInterval = null;
+    } else if (!pollerInterval) {
+      pollerInterval = setInterval(async () => {
+        await MSP.promise(MSPCodes.MSP_MOTOR);
+        await MSP.promise(MSPCodes.MSP_MOTOR_TELEMETRY);
+        await MSP.promise(MSPCodes.MSP_BATTERY_STATE);
+      }, 100);
+    }
     untrack(() => mspHelper.resetMotorOverrides());
   });
 </script>
 
-<Section label="motorOverride">
+<Section label="motorOverrideTitle">
   <WarningNote message="motorOverrideNote" />
   <SubSection>
     <Field id="motor-override-enable" label="genericEnable">

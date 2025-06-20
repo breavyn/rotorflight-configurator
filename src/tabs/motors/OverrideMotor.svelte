@@ -22,6 +22,19 @@
     return values;
   });
 
+  let throttle = $derived.by(() => {
+    const value = FC.MOTOR_DATA[index];
+
+    if (value < 0) {
+      return (value + 1000) / 10;
+    }
+
+    if (value > 0) {
+      return (value - 1000) / 10;
+    }
+
+    return 0;
+  });
   let rpm = $derived(FC.MOTOR_TELEMETRY_DATA.rpm[index] ?? 0);
   let voltage = $derived(FC.MOTOR_TELEMETRY_DATA.voltage[index] / 1000);
   let current = $derived(FC.MOTOR_TELEMETRY_DATA.current[index] / 1000);
@@ -29,27 +42,28 @@
   let temp2 = $derived(FC.MOTOR_TELEMETRY_DATA.temperature2[index] / 10);
   let errors = $derived(FC.MOTOR_TELEMETRY_DATA.invalidPercent[index] / 100);
 
+  let rpmMax = $state(5000);
   let voltageMax = $state(10);
   let currentMax = $state(10);
   let temp1Max = $state(100);
   let temp2Max = $state(100);
 
+  // Limit how frequently the motor override can be updated
   let timeoutId;
+  function updateThrottle() {
+    if (!timeoutId) {
+      timeoutId = setTimeout(() => {
+        timeoutId = null;
+        FC.MOTOR_OVERRIDE[index] = overrideValue * 10;
+        mspHelper.sendMotorOverride(index);
+      }, 100);
+    }
+  }
 
   onDestroy(() => {
     clearTimeout(timeoutId);
     timeoutId = null;
   });
-
-  function updateThrottle() {
-    if (!timeoutId) {
-      timeoutId = setTimeout(() => {
-        timeoutId = null;
-        FC.MOTOR_OVERRIDE[index] = overrideValue;
-        mspHelper.sendMotorOverride(index);
-      }, 100);
-    }
-  }
 </script>
 
 <svelte:window bind:innerWidth={width} />
@@ -86,9 +100,16 @@
   </div>
   <div class="bars-container">
     <Meter
+      title="Throttle"
+      rightLabel="100%"
+      leftLabel={`${throttle}%`}
+      value={throttle}
+    />
+    <Meter
       title="RPM"
-      rightLabel={`${(5000).toLocaleString()} RPM`}
+      rightLabel={`${rpmMax.toLocaleString()} RPM`}
       leftLabel={`${rpm.toLocaleString()} RPM`}
+      value={(100 * rpm) / rpmMax}
     />
     {#if FC.FEATURE_CONFIG.features.ESC_SENSOR}
       <Meter

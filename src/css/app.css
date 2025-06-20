@@ -52,12 +52,13 @@ html[data-theme="light"] {
   --color-switch-handle: var(--color-neutral-50);
   --color-switch-handle-secondary: var(--color-neutral-50);
 
-  --color-slider-foreground: var(--color-neutral-400);
-  --color-slider-background: var(--color-neutral-800);
-  --color-slider-border: var(--color-neutral-600);
-  --color-slider-handle-background: var(--color-neutral-900);
-  --color-slider-handle-border: var(--color-neutral-600);
-  --color-slider-connect: var(--color-accent-600);
+  --color-slider-foreground: var(--color-neutral-500);
+  --color-slider-background: var(--color-neutral-200);
+  --color-slider-border: var(--color-neutral-400);
+  --color-slider-handle-background: var(--color-neutral-100);
+  --color-slider-handle-border: var(--color-neutral-500);
+  --color-slider-connect: var(--color-accent-500);
+  --color-slider-text: var(--color-neutral-900);
 
   --color-roll: hsl(2, 62%, 60%);
   --color-pitch: hsl(122, 62%, 60%);
