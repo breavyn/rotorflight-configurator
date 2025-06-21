@@ -7,23 +7,24 @@
   import { reinitialiseConnection } from "@/js/serial_backend";
 
   import Page from "@/components/Page.svelte";
+
   import Throttle from "./Throttle.svelte";
   import RPM from "./RPM.svelte";
   import Telemetry from "./Telemetry.svelte";
   import Governor from "./Governor.svelte";
   import RotorSpeed from "./RotorSpeed.svelte";
-  import Override from "./Override.svelte";
+  import Override from "./Override/Override.svelte";
+  import { State } from "./state.svelte.js";
 
   let loading = $state(true);
   let initialState;
 
-  let protocol = $derived(FC.MOTOR_CONFIG.motor_pwm_protocol);
-  let isDshot = $derived(protocol >= 5 && protocol < 9);
-  let isEnabled = $derived(protocol < 9 && FC.CONFIG.motorCount > 0);
+  let isEnabled = $derived(State.throttleEnabled && FC.CONFIG.motorCount > 0);
 
   let rpmAvailable = $derived(
     FC.FEATURE_CONFIG.features.FREQ_SENSOR ||
-      (isDshot && FC.ESC_SENSOR_CONFIG.use_dshot_telemetry),
+      FC.FEATURE_CONFIG.features.ESC_SENSOR ||
+      (State.isDshot && FC.ESC_SENSOR_CONFIG.use_dshot_telemetry),
   );
 
   function snapshotState() {
@@ -55,6 +56,10 @@
 
     initialState = snapshotState();
     loading = false;
+  });
+
+  $effect(() => {
+    State.fixConfig();
   });
 
   export async function onSave() {

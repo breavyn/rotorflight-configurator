@@ -1,5 +1,8 @@
 <script>
+  import { slide } from "svelte/transition";
+
   import { FC } from "@/js/fc.svelte.js";
+
   import Field from "@/components/Field.svelte";
   import Section from "@/components/Section.svelte";
   import SubSection from "@/components/SubSection.svelte";
@@ -7,22 +10,10 @@
   import Tooltip from "@/components/Tooltip.svelte";
   import NumberInput from "@/components/NumberInput.svelte";
 
-  const escProtocols = [
-    "PWM",
-    "ONESHOT125",
-    "ONESHOT42",
-    "MULTISHOT",
-    "BRUSHED",
-    "DSHOT150",
-    "DSHOT300",
-    "DSHOT600",
-    "PROSHOT",
-    "DISABLED",
-  ];
+  import { State } from "./state.svelte.js";
 
   let protocol = $derived(FC.MOTOR_CONFIG.motor_pwm_protocol);
-  let isEnabled = $derived(protocol < 9 && FC.CONFIG.motorCount > 0);
-  let isDshot = $derived(protocol >= 5 && protocol < 9);
+  let isEnabled = $derived(State.throttleEnabled && FC.CONFIG.motorCount > 0);
 </script>
 
 <Section label="motorsSectionLabelThrottle">
@@ -32,92 +23,94 @@
         <Tooltip help="motorsEscProtocolHelp" />
       {/snippet}
       <select id="esc-protocol" bind:value={FC.MOTOR_CONFIG.motor_pwm_protocol}>
-        {#each escProtocols as proto, index (proto)}
+        {#each State.throttleProtocols as proto, index (proto)}
           <option value={index}>{proto}</option>
         {/each}
       </select>
     </Field>
 
-    {#if isEnabled && !isDshot}
-      <Field id="pwm-freq" label="motorsUnsyncedPWMFreq" unit="Hz">
-        {#snippet tooltip()}
-          <Tooltip
-            help="motorsUnsyncedPWMFreqHelp"
-            attrs={[
-              { name: "genericDefault", value: "250Hz" },
-              { name: "genericRange", value: "0Hz - 250Hz" },
-            ]}
+    {#if isEnabled && !State.isDshot}
+      <div transition:slide>
+        <Field id="pwm-freq" label="motorsUnsyncedPWMFreq" unit="Hz">
+          {#snippet tooltip()}
+            <Tooltip
+              help="motorsUnsyncedPWMFreqHelp"
+              attrs={[
+                { name: "genericDefault", value: "250Hz" },
+                { name: "genericRange", value: "0Hz - 250Hz" },
+              ]}
+            />
+          {/snippet}
+          <NumberInput
+            id="pwm-freq"
+            min="0"
+            max="250"
+            step="10"
+            bind:value={FC.MOTOR_CONFIG.motor_pwm_rate}
           />
-        {/snippet}
-        <NumberInput
-          id="pwm-freq"
-          min="0"
-          max="250"
-          step="10"
-          bind:value={FC.MOTOR_CONFIG.motor_pwm_rate}
-        />
-      </Field>
+        </Field>
 
-      <Field
-        id="throttle-off-pwm"
-        label="motorsThrottleMinimumCommand"
-        unit="μs"
-      >
-        {#snippet tooltip()}
-          <Tooltip
-            help="motorsThrottleMinimumCommandHelp"
-            attrs={[
-              { name: "genericDefault", value: "1000μs" },
-              { name: "genericRange", value: "50μs - 2250μs" },
-            ]}
-          />
-        {/snippet}
-        <NumberInput
+        <Field
           id="throttle-off-pwm"
-          min="50"
-          max="2250"
-          bind:value={FC.MOTOR_CONFIG.mincommand}
-        />
-      </Field>
-
-      <Field id="throttle-min-pwm" label="motorsThrottleMinimum" unit="μs">
-        {#snippet tooltip()}
-          <Tooltip
-            help="motorsThrottleMinimumHelp"
-            attrs={[
-              { name: "genericDefault", value: "1070μs" },
-              { name: "genericRange", value: "50μs - 2250μs" },
-            ]}
+          label="motorsThrottleMinimumCommand"
+          unit="μs"
+        >
+          {#snippet tooltip()}
+            <Tooltip
+              help="motorsThrottleMinimumCommandHelp"
+              attrs={[
+                { name: "genericDefault", value: "1000μs" },
+                { name: "genericRange", value: "50μs - 2250μs" },
+              ]}
+            />
+          {/snippet}
+          <NumberInput
+            id="throttle-off-pwm"
+            min="50"
+            max="2250"
+            bind:value={FC.MOTOR_CONFIG.mincommand}
           />
-        {/snippet}
-        <NumberInput
-          id="throttle-min-pwm"
-          min="50"
-          max="2250"
-          bind:value={FC.MOTOR_CONFIG.minthrottle}
-        />
-      </Field>
+        </Field>
 
-      <Field id="throttle-max-pwm" label="motorsThrottleMaximum" unit="μs">
-        {#snippet tooltip()}
-          <Tooltip
-            help="motorsThrottleMaximumHelp"
-            attrs={[
-              { name: "genericDefault", value: "2000μs" },
-              { name: "genericRange", value: "50μs - 2250μs" },
-            ]}
+        <Field id="throttle-min-pwm" label="motorsThrottleMinimum" unit="μs">
+          {#snippet tooltip()}
+            <Tooltip
+              help="motorsThrottleMinimumHelp"
+              attrs={[
+                { name: "genericDefault", value: "1070μs" },
+                { name: "genericRange", value: "50μs - 2250μs" },
+              ]}
+            />
+          {/snippet}
+          <NumberInput
+            id="throttle-min-pwm"
+            min="50"
+            max="2250"
+            bind:value={FC.MOTOR_CONFIG.minthrottle}
           />
-        {/snippet}
-        <NumberInput
-          id="throttle-max-pwm"
-          min="50"
-          max="2250"
-          bind:value={FC.MOTOR_CONFIG.maxthrottle}
-        />
-      </Field>
+        </Field>
+
+        <Field id="throttle-max-pwm" label="motorsThrottleMaximum" unit="μs">
+          {#snippet tooltip()}
+            <Tooltip
+              help="motorsThrottleMaximumHelp"
+              attrs={[
+                { name: "genericDefault", value: "2000μs" },
+                { name: "genericRange", value: "50μs - 2250μs" },
+              ]}
+            />
+          {/snippet}
+          <NumberInput
+            id="throttle-max-pwm"
+            min="50"
+            max="2250"
+            bind:value={FC.MOTOR_CONFIG.maxthrottle}
+          />
+        </Field>
+      </div>
     {/if}
 
-    {#if isEnabled && !isDshot && protocol !== 0}
+    {#if isEnabled && !State.isDshot && protocol !== 0 && !State.isCastleLink}
       <Field id="throttle-unsynced-pwm" label="motorsUnsyncedPwm">
         {#snippet tooltip()}
           <Tooltip help="motorsUnsyncedPwmHelp" />

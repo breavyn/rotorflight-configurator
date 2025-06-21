@@ -3165,6 +3165,12 @@
     "motorsSectionLabelRPM": {
         "message": "RPM"
     },
+    "motorsSectionSignaling": {
+        "message": "Signaling"
+    },
+    "motorsSectionSensorCorrection": {
+        "message": "Sensor Correction"
+    },
     "motorsEscProtocol": {
         "message": "Throttle protocol"
     },

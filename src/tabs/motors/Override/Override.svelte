@@ -1,12 +1,14 @@
 <script>
-  import { untrack } from "svelte";
+  import { onDestroy, untrack } from "svelte";
   import { FC } from "@/js/fc.svelte.js";
+
   import Field from "@/components/Field.svelte";
   import Section from "@/components/Section.svelte";
   import SubSection from "@/components/SubSection.svelte";
   import Switch from "@/components/Switch.svelte";
   import WarningNote from "@/components/notes/WarningNote.svelte";
-  import OverrideMotor from "./OverrideMotor.svelte";
+
+  import Motor from "./Motor.svelte";
 
   let isEnabled = $state(false);
   let pollerInterval;
@@ -25,6 +27,12 @@
     }
     untrack(() => mspHelper.resetMotorOverrides());
   });
+
+  onDestroy(() => {
+    clearInterval(pollerInterval);
+    pollerInterval = null;
+    mspHelper.resetMotorOverrides();
+  });
 </script>
 
 <Section label="motorOverrideTitle">
@@ -38,7 +46,7 @@
 
 {#if isEnabled}
   {#each { length: FC.CONFIG.motorCount } as _, i (i)}
-    <OverrideMotor index={i} />
+    <Motor index={i} />
   {/each}
 {/if}
 

@@ -5,6 +5,8 @@
   import Meter from "@/components/Meter.svelte";
   import Slider from "@/components/Slider.svelte";
 
+  import { State } from "../state.svelte.js";
+
   let { index } = $props();
 
   let overrideValue = $state(0);
@@ -111,7 +113,7 @@
       leftLabel={`${rpm.toLocaleString()} RPM`}
       value={(100 * rpm) / rpmMax}
     />
-    {#if FC.FEATURE_CONFIG.features.ESC_SENSOR}
+    {#if State.telemEnabled}
       <Meter
         title="Voltage"
         rightLabel={`${voltageMax} V`}
