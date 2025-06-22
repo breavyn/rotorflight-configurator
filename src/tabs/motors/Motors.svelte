@@ -43,7 +43,6 @@
 
     return diff(initialState, snapshotState());
   });
-  $inspect(changes);
   let showToolbar = $derived(!loading && changes.length > 0);
 
   onMount(async () => {
