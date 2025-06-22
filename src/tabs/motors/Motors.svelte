@@ -1,6 +1,6 @@
 <script>
-  import { onMount } from "svelte";
   import diff from "microdiff";
+  import { onMount } from "svelte";
 
   import { i18n } from "@/js/i18n.js";
   import { FC } from "@/js/fc.svelte.js";

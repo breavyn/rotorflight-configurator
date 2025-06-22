@@ -9,6 +9,7 @@
 
   let { index } = $props();
 
+  let slider;
   let overrideValue = $state(0);
 
   let width = $state(0);
@@ -22,6 +23,27 @@
     }
 
     return values;
+  });
+
+  let sliderOpts = $derived({
+    range: {
+      min: 0,
+      max: 100,
+    },
+    connect: [true, false],
+    start: 0,
+    step: 1,
+    behaviour: "snap-drag",
+    pips: {
+      mode: "values",
+      values: sliderValues,
+      density: sliderDensity,
+      stepped: true,
+    },
+  });
+
+  $effect(() => {
+    slider.update(sliderOpts);
   });
 
   let throttle = $derived.by(() => {
@@ -80,24 +102,10 @@
   {/snippet}
   <div class="slider-container">
     <Slider
+      bind:this={slider}
       bind:value={overrideValue}
       onchange={updateThrottle}
-      opts={{
-        range: {
-          min: 0,
-          max: 100,
-        },
-        connect: [true, false],
-        start: 0,
-        step: 1,
-        behaviour: "snap-drag",
-        pips: {
-          mode: "values",
-          values: sliderValues,
-          density: sliderDensity,
-          stepped: true,
-        },
-      }}
+      opts={sliderOpts}
     />
   </div>
   <div class="bars-container">

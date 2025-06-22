@@ -11,10 +11,6 @@
     slider?.set(value);
   });
 
-  $effect(() => {
-    slider?.updateOptions(opts);
-  });
-
   onMount(() => {
     slider = noUiSlider.create(node, { ...opts, cssPrefix: "svelte-slide-" });
     slider.on("slide", (values) => {
@@ -27,6 +23,10 @@
   onDestroy(() => {
     slider.destroy();
   });
+
+  export function update(opts) {
+    slider?.updateOptions(opts);
+  }
 </script>
 
 <div bind:this={node}></div>
