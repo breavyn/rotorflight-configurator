@@ -1,6 +1,9 @@
 <script>
   import { onDestroy } from "svelte";
+
   import { FC } from "@/js/fc.svelte.js";
+  import { i18n } from "@/js/i18n.js";
+
   import Section from "@/components/Section.svelte";
   import Meter from "@/components/Meter.svelte";
   import Slider from "@/components/Slider.svelte";
@@ -72,6 +75,28 @@
   let temp1Max = $state(100);
   let temp2Max = $state(100);
 
+  $effect(() => {
+    if (rpm > rpmMax) {
+      rpmMax = Math.ceil((rpm + 1000) / 1000) * 1000;
+    }
+
+    if (voltage > voltageMax) {
+      voltageMax = Math.ceil((voltage + 1) / 1) * 1;
+    }
+
+    if (current > currentMax) {
+      currentMax = Math.ceil((current + 1) / 1) * 1;
+    }
+
+    if (temp1 > temp1Max) {
+      temp1Max = Math.ceil((temp1 + 1) / 1) * 1;
+    }
+
+    if (temp2 > temp2Max) {
+      temp2Max = Math.ceil((temp2 + 1) / 1) * 1;
+    }
+  });
+
   // Limit how frequently the motor override can be updated
   let timeoutId;
   function updateThrottle() {
@@ -110,45 +135,50 @@
   </div>
   <div class="bars-container">
     <Meter
-      title="Throttle"
+      title={$i18n.t("motorThrottle")}
       rightLabel="100%"
       leftLabel={`${throttle}%`}
       value={throttle}
     />
     <Meter
-      title="RPM"
+      title={$i18n.t("motorRPM")}
       rightLabel={`${rpmMax.toLocaleString()} RPM`}
       leftLabel={`${rpm.toLocaleString()} RPM`}
       value={(100 * rpm) / rpmMax}
     />
     {#if State.telemEnabled}
       <Meter
-        title="Voltage"
+        title={$i18n.t("motorVoltage")}
         rightLabel={`${voltageMax} V`}
         leftLabel={`${voltage.toFixed(2)} V`}
         value={(100 * voltage) / voltageMax}
       />
       <Meter
-        title="Current"
+        title={$i18n.t("motorCurrent")}
         rightLabel={`${currentMax} A`}
         leftLabel={`${current.toFixed(2)} A`}
         value={(100 * current) / currentMax}
       />
       <Meter
-        title="Temperature 1"
+        title={$i18n.t("motorTemperature")}
         rightLabel={`${temp1Max} °C`}
         leftLabel={`${temp1.toFixed(1)} °C`}
         value={(100 * temp1) / temp1Max}
       />
       <Meter
-        title="Temperature 2"
+        title={$i18n.t("motorTemperature")}
         rightLabel={`${temp2Max} °C`}
         leftLabel={`${temp2.toFixed(1)} °C`}
         value={(100 * temp2) / temp2Max}
       />
     {/if}
     {#if FC.ESC_SENSOR_CONFIG.use_dshot_telemetry}
-      <Meter title="Errors" max="100" label={`${errors} %`} value={errors} />
+      <Meter
+        title={$i18n.t("motorDshotError")}
+        rightLabel="100%"
+        leftLabel={`${errors.toFixed(2)}%`}
+        value={errors}
+      />
     {/if}
   </div>
 </Section>

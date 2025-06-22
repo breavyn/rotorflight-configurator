@@ -3316,10 +3316,10 @@
         "message": "Motor #4"
     },
     "motorThrottle": {
-        "message": "Throttle:"
+        "message": "Throttle"
     },
     "motorRPM": {
-        "message": "RPM:"
+        "message": "RPM"
     },
     "motorHeadspeed": {
         "message": "Headspeed:"
@@ -3328,16 +3328,16 @@
         "message": "Tailspeed:"
     },
     "motorVoltage": {
-        "message": "Voltage:"
+        "message": "Voltage"
     },
     "motorCurrent": {
-        "message": "Current:"
+        "message": "Current"
     },
     "motorTemperature": {
-        "message": "Temp:"
+        "message": "Temp"
     },
     "motorDshotError": {
-        "message": "Errors:"
+        "message": "DShot RPM Error Rate"
     },
     "motorOverrideNote": {
         "message": "Throttle Override sets the throttle output to an arbitrary value for setup and testing purposes. The override values are not saved, and will be reset after reboot.<br/><br/><strong>THROTTLE OVERRIDE WILL MAKE THE MOTORS SPOOL UP!</strong>"
