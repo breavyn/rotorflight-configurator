@@ -73,6 +73,7 @@
         <Field
           id="telemetry-crsf-packet-rate"
           label="receiverCrsfTelemetryRate"
+          unit="Hz"
         >
           {#snippet tooltip()}
             <Tooltip help="receiverHelpCrsfTelemetryRate" />

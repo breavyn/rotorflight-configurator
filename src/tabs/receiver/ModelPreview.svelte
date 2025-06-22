@@ -3,9 +3,10 @@
   import { Clock } from "three";
 
   import { i18n } from "@/js/i18n.js";
-  import Model from "@/components/Model.svelte";
   import { Setpoint as sp } from "@/js/setpoint.svelte.js";
   import { degToRad } from "@/js/utils/common";
+
+  import Model from "@/components/Model.svelte";
 
   let model;
   let clock = new Clock();
@@ -39,18 +40,27 @@
   }
 </script>
 
-<div class="container">
-  <Model bind:this={model} />
-  <button class="reset-btn" onclick={handleReset}
-    >{$i18n.t("resetModelPreviewOrientation")}</button
-  >
+<div>
+  <div class="header">{$i18n.t("receiverModelPreview")}</div>
+  <div class="container">
+    <Model bind:this={model} />
+    <button class="reset-btn" onclick={handleReset}
+      >{$i18n.t("resetModelPreviewOrientation")}</button
+    >
+  </div>
 </div>
 
 <style lang="scss">
+  .header {
+    @extend %section-header;
+    padding-left: 8px;
+  }
+
   .container {
     position: relative;
     height: 400px;
-    border-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
     overflow: hidden;
 
     :global(html[data-theme="light"]) & {
@@ -58,7 +68,9 @@
     }
 
     :global(html[data-theme="dark"]) & {
-      border: 1px solid var(--color-neutral-700);
+      border-width: 0 1px 1px;
+      border-style: solid;
+      border-color: var(--color-neutral-800);
     }
   }
 
@@ -99,18 +111,7 @@
 
   @media only screen and (max-width: 480px) {
     .container {
-      margin-top: 48px;
       border-radius: 0;
-      border-top-width: 1px;
-      border-style: solid;
-
-      :global(html[data-theme="light"]) & {
-        border-top-color: var(--color-neutral-400);
-      }
-
-      :global(html[data-theme="dark"]) & {
-        border-top-color: var(--color-neutral-700);
-      }
     }
   }
 </style>

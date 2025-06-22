@@ -127,7 +127,7 @@
 
       &.active {
         :global(html[data-theme="light"]) & {
-          color: var(--color-neutral-900);
+          color: var(--color-neutral-800);
         }
 
         :global(html[data-theme="dark"]) & {

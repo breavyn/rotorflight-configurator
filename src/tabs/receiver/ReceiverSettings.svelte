@@ -9,13 +9,13 @@
 
 <Section label="receiverSettings">
   <SubSection>
-    <Field id="receiver-stick-center" label="receiverStickCenter">
+    <Field id="receiver-stick-center" label="receiverStickCenter" unit="μs">
       {#snippet tooltip()}
         <Tooltip
           help="receiverHelpStickCenter"
           attrs={[
             { name: "genericDefault", value: "1500μs" },
-            { name: "genericRange", value: "1400μs - 1600μs " },
+            { name: "genericRange", value: "1400μs - 1600μs" },
           ]}
         />
       {/snippet}
@@ -26,13 +26,17 @@
         bind:value={FC.RC_CONFIG.rc_center}
       />
     </Field>
-    <Field id="receiver-stick-deflection" label="receiverStickDeflection">
+    <Field
+      id="receiver-stick-deflection"
+      label="receiverStickDeflection"
+      unit="μs"
+    >
       {#snippet tooltip()}
         <Tooltip
           help="receiverHelpStickDeflection"
           attrs={[
             { name: "genericDefault", value: "510μs" },
-            { name: "genericRange", value: "200μs - 700μs " },
+            { name: "genericRange", value: "200μs - 700μs" },
           ]}
         />
       {/snippet}
@@ -43,13 +47,53 @@
         bind:value={FC.RC_CONFIG.rc_deflection}
       />
     </Field>
-    <Field id="receiver-arm-throttle" label="receiverArmingThrottle">
+    <Field
+      id="receiver-cyclic-deadband"
+      label="receiverCyclicDeadband"
+      unit="μs"
+    >
+      {#snippet tooltip()}
+        <Tooltip
+          help="receiverHelpCyclicDeadband"
+          attrs={[
+            { name: "genericDefault", value: "2μs" },
+            { name: "genericRange", value: "0μs - 100μs" },
+          ]}
+        />
+      {/snippet}
+      <NumberInput
+        id="receiver-cyclic-deadband"
+        min="0"
+        max="100"
+        bind:value={FC.RC_CONFIG.rc_deadband}
+      />
+    </Field>
+    <Field id="receiver-yaw-deadband" label="receiverYawDeadband" unit="μs">
+      {#snippet tooltip()}
+        <Tooltip
+          help="receiverHelpYawDeadband"
+          attrs={[
+            { name: "genericDefault", value: "2μs" },
+            { name: "genericRange", value: "0μs - 100μs" },
+          ]}
+        />
+      {/snippet}
+      <NumberInput
+        id="receiver-yaw-deadband"
+        min="0"
+        max="100"
+        bind:value={FC.RC_CONFIG.rc_yaw_deadband}
+      />
+    </Field>
+  </SubSection>
+  <SubSection label="receiverSettingsThrottleChannel">
+    <Field id="receiver-arm-throttle" label="receiverArmingThrottle" unit="μs">
       {#snippet tooltip()}
         <Tooltip
           help="receiverHelpArmingThrottle"
           attrs={[
             { name: "genericDefault", value: "1000μs" },
-            { name: "genericRange", value: "850μs - 1500μs " },
+            { name: "genericRange", value: "850μs - 1500μs" },
           ]}
         />
       {/snippet}
@@ -60,7 +104,7 @@
         bind:value={FC.RC_CONFIG.rc_arm_throttle}
       />
     </Field>
-    <Field id="receiver-zero-throttle" label="receiverZeroThrottle">
+    <Field id="receiver-zero-throttle" label="receiverZeroThrottle" unit="μs">
       {#snippet tooltip()}
         <Tooltip
           help="receiverHelpZeroThrottle"
@@ -77,13 +121,13 @@
         bind:value={FC.RC_CONFIG.rc_min_throttle}
       />
     </Field>
-    <Field id="receiver-full-throttle" label="receiverFullThrottle">
+    <Field id="receiver-full-throttle" label="receiverFullThrottle" unit="μs">
       {#snippet tooltip()}
         <Tooltip
           help="receiverHelpFullThrottle"
           attrs={[
             { name: "genericDefault", value: "2000μs" },
-            { name: "genericRange", value: "1500μs - 2150μs " },
+            { name: "genericRange", value: "1500μs - 2150μs" },
           ]}
         />
       {/snippet}
@@ -92,40 +136,6 @@
         min="1500"
         max="2150"
         bind:value={FC.RC_CONFIG.rc_max_throttle}
-      />
-    </Field>
-    <Field id="receiver-cyclic-deadband" label="receiverCyclicDeadband">
-      {#snippet tooltip()}
-        <Tooltip
-          help="receiverHelpCyclicDeadband"
-          attrs={[
-            { name: "genericDefault", value: "2μs" },
-            { name: "genericRange", value: "0μs - 100μs " },
-          ]}
-        />
-      {/snippet}
-      <NumberInput
-        id="receiver-cyclic-deadband"
-        min="0"
-        max="100"
-        bind:value={FC.RC_CONFIG.rc_deadband}
-      />
-    </Field>
-    <Field id="receiver-yaw-deadband" label="receiverYawDeadband">
-      {#snippet tooltip()}
-        <Tooltip
-          help="receiverHelpYawDeadband"
-          attrs={[
-            { name: "genericDefault", value: "2μs" },
-            { name: "genericRange", value: "0μs - 100μs " },
-          ]}
-        />
-      {/snippet}
-      <NumberInput
-        id="receiver-yaw-deadband"
-        min="0"
-        max="100"
-        bind:value={FC.RC_CONFIG.rc_yaw_deadband}
       />
     </Field>
   </SubSection>

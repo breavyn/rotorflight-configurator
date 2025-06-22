@@ -165,4 +165,11 @@
     grid-column: 1/-1;
     grid-template-columns: subgrid;
   }
+
+  @media only screen and (max-width: 480px) {
+    .channel-assignment {
+      height: 32px;
+      line-height: 32px;
+    }
+  }
 </style>
