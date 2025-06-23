@@ -9,6 +9,7 @@
 !/src/**/
 !/src/css/app.css
 !/src/css/tabs/presets.css
+!/src/js/backbutton.js
 !/src/js/cli_engine.js
 !/src/js/clipboard.js
 !/src/js/config.js

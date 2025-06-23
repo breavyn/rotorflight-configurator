@@ -1,6 +1,7 @@
 import "multiple-select";
 import { mount } from "svelte";
 
+import { backbutton } from "@/js/backbutton.js";
 import { Beepers } from "@/js/Beepers.js";
 import { CliAutoComplete } from "@/js/CliAutoComplete.js";
 import { ConfigInserter } from "@/js/ConfigInserter.js";
@@ -91,6 +92,7 @@ if (__BACKEND__ === "cordova") {
       ...startup,
     });
 
+    backbutton.listen(() => navigator.app.exitApp());
     cordovaApp.initialize();
   })();
 }
