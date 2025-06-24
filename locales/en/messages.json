@@ -1752,13 +1752,13 @@
         "message": "Enable Telemetry"
     },
     "receiverTelemetryHalfDuplex": {
-        "message": "One-wire Telemetry Communication"
+        "message": "Half-Duplex"
     },
     "receiverTelemetryInverted": {
-        "message": "Inverted Telemetry Signaling"
+        "message": "Inverted"
     },
     "receiverTelemetryPinSwap": {
-        "message": "Telemetry Pin Swap (Swap Rx and Tx pins)"
+        "message": "Pin Swap"
     },
     "receiverCrsfTelemetryMode": {
         "message": "Custom Telemetry"
