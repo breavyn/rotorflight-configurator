@@ -61,10 +61,10 @@
           <Switch
             id="telmetry-crsf-custom"
             bind:checked={
-              () => FC.TELEMETRY_CONFIG.crsf_telemetry_mode,
+              () => Boolean(FC.TELEMETRY_CONFIG.crsf_telemetry_mode),
               (v) => {
                 const currentProto = telemetry;
-                FC.TELEMETRY_CONFIG.crsf_telemetry_mode = v;
+                FC.TELEMETRY_CONFIG.crsf_telemetry_mode = Number(v);
                 resetTelemetry(currentProto);
               }
             }
