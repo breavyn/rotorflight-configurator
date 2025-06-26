@@ -37,6 +37,7 @@ export const GuiControl = function () {
         'auxiliary',
         'cli',
         'configuration',
+        'configuration_2',
         'beepers',
         'gps',
         'led_strip',

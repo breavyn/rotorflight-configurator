@@ -864,6 +864,14 @@ MspHelper.prototype.process_data = function(dataHandler) {
 
             case MSPCodes.MSP_PILOT_CONFIG: {
                 FC.PILOT_CONFIG.model_id = data.readU8();
+                const params = [];
+                for (let i = 0; i < 3; i++) {
+                    params.push({
+                        type: data.readU8(),
+                        value: data.readU16(),
+                    });
+                }
+                FC.PILOT_CONFIG.params = params;
                 break;
             }
 
@@ -1599,6 +1607,10 @@ MspHelper.prototype.process_data = function(dataHandler) {
                 console.log('Name set');
                 break;
             }
+            case MSPCodes.MSP_SET_PILOT_CONFIG: {
+                console.log('Pilot config set');
+                break;
+            }
             case MSPCodes.MSP_SET_FILTER_CONFIG: {
                 console.log('Filter config set');
                 break;
@@ -2200,6 +2212,14 @@ MspHelper.prototype.crunch = function(code) {
             const MSP_BUFFER_SIZE = 64;
             for (let i = 0; i<FC.CONFIG.name.length && i<MSP_BUFFER_SIZE; i++) {
                 buffer.push8(FC.CONFIG.name.charCodeAt(i));
+            }
+            break;
+        }
+
+        case MSPCodes.MSP_SET_PILOT_CONFIG: {
+            buffer.push8(FC.PILOT_CONFIG.model_id);
+            for (const { type, value } of FC.PILOT_CONFIG.params) {
+                buffer.push8(type).push16(value);
             }
             break;
         }

@@ -1366,7 +1366,7 @@
         "message": "Beep a special tone when arming the FC and GPS does not have fix"
     },
     "configurationSystem": {
-        "message": "System configuration"
+        "message": "System Configuration"
     },
     "configurationLoopTime": {
         "message": "Flight Controller Loop Time"
@@ -7034,7 +7034,7 @@
         "message": "Personalization"
     },
     "craftName": {
-        "message": "Craft name"
+        "message": "Model Name"
     },
     "blackboxMode": {
         "message": "Logging mode"
