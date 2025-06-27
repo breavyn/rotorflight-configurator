@@ -23,6 +23,7 @@
       CONFIG: FC.CONFIG,
       PILOT_CONFIG: FC.PILOT_CONFIG,
       SENSOR_CONFIG: FC.SENSOR_CONFIG,
+      BOARD_ALIGNMENT_CONFIG: FC.BOARD_ALIGNMENT_CONFIG,
       features: FC.FEATURE_CONFIG.features.bitfield,
     });
   }
@@ -41,15 +42,22 @@
     await MSP.promise(MSPCodes.MSP_PILOT_CONFIG);
     await MSP.promise(MSPCodes.MSP_SENSOR_CONFIG);
     await MSP.promise(MSPCodes.MSP_NAME);
+    await MSP.promise(MSPCodes.MSP_BOARD_ALIGNMENT_CONFIG);
 
     initialState = snapshotState();
     loading = false;
   });
 
   export async function onSave() {
-    // function save(code) {
-    //   return MSP.promise(code, mspHelper.crunch(code));
-    // }
+    function save(code) {
+      return MSP.promise(code, mspHelper.crunch(code));
+    }
+
+    await save(MSPCodes.MSP_SET_FEATURE_CONFIG);
+    await save(MSPCodes.MSP_SET_PILOT_CONFIG);
+    await save(MSPCodes.MSP_SET_SENSOR_CONFIG);
+    await save(MSPCodes.MSP_SET_NAME);
+    await save(MSPCodes.MSP_SET_BOARD_ALIGNMENT_CONFIG);
 
     await MSP.promise(MSPCodes.MSP_EEPROM_WRITE);
     GUI.log($i18n.t("eepromSaved"));
@@ -62,6 +70,10 @@
     Object.assign(FC.CONFIG, initialState.CONFIG);
     Object.assign(FC.PILOT_CONFIG, initialState.PILOT_CONFIG);
     Object.assign(FC.SENSOR_CONFIG, initialState.SENSOR_CONFIG);
+    Object.assign(
+      FC.BOARD_ALIGNMENT_CONFIG,
+      initialState.BOARD_ALIGNMENT_CONFIG,
+    );
     FC.FEATURE_CONFIG.features.bitfield = initialState.features;
   }
 
@@ -75,7 +87,7 @@
 </script>
 
 {#snippet header()}
-  <h1>{$i18n.t("tabFailsafe")}</h1>
+  <h1>{$i18n.t("tabConfiguration")}</h1>
   <div class="grow"></div>
   <button class="help-btn" onclick={onClickHelp}>Help</button>
 {/snippet}
@@ -172,7 +184,46 @@
       <Section
         label="configurationBoardAlignment"
         summary="configurationBoardAlignmentHelp"
-      ></Section>
+      >
+        <SubSection>
+          <Field
+            id="board-align-roll"
+            label="configurationBoardAlignmentRoll"
+            unit="°"
+          >
+            <NumberInput
+              id="board-align-roll"
+              min="-180"
+              max="360"
+              bind:value={FC.BOARD_ALIGNMENT_CONFIG.roll}
+            />
+          </Field>
+          <Field
+            id="board-align-pitch"
+            label="configurationBoardAlignmentPitch"
+            unit="°"
+          >
+            <NumberInput
+              id="board-align-pitch"
+              min="-180"
+              max="360"
+              bind:value={FC.BOARD_ALIGNMENT_CONFIG.pitch}
+            />
+          </Field>
+          <Field
+            id="board-align-yaw"
+            label="configurationBoardAlignmentYaw"
+            unit="°"
+          >
+            <NumberInput
+              id="board-align-yaw"
+              min="-180"
+              max="360"
+              bind:value={FC.BOARD_ALIGNMENT_CONFIG.yaw}
+            />
+          </Field>
+        </SubSection>
+      </Section>
     </div>
   </div>
 </Page>
