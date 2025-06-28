@@ -2740,37 +2740,37 @@
         "message": "Main Rotor Geometry"
     },
     "mixerCyclicCalibration": {
-        "message": "Cyclic calibration [%]"
+        "message": "Cyclic Calibration"
     },
     "mixerCyclicCalibrationHelp": {
         "message": "Adjust the cyclic gain to match the mechanical gain in the head design."
     },
     "mixerCollectiveCalibration": {
-        "message": "Collective calibration [%]"
+        "message": "Collective Calibration"
     },
     "mixerCollectiveCalibrationHelp": {
         "message": "Adjust the collective gain to match the mechanical gain in the head design."
     },
     "mixerCollectiveGeoCorrection": {
-        "message": "Collective Geometry Correction [%]"
+        "message": "Collective Geometry Correction"
     },
     "mixerCollectiveGeoCorrectionHelp": {
         "message": "Adjust until the collective positive and negative deflections are equal."
     },
     "mixerTotalPitchLimit": {
-        "message": "Total blade pitch limit [&deg;]"
+        "message": "Total Blade Pitch Limit"
     },
     "mixerTotalPitchLimitHelp": {
         "message": "Maximum amount of total cyclic + collective blade pitch."
     },
     "mixerCyclicLimit": {
-        "message": "Cyclic blade pitch limit [&deg;]"
+        "message": "Cyclic Blade Pitch Limit"
     },
     "mixerCyclicLimitHelp": {
         "message": "Maximum amount of cyclic blade pitch."
     },
     "mixerCollectiveLimit": {
-        "message": "Collective blade pitch limit [&deg;]"
+        "message": "Collective Blade Pitch Limit"
     },
     "mixerCollectiveLimitHelp": {
         "message": "Maximum amount of collective blade pitch."
@@ -2782,7 +2782,7 @@
         "message": "The swashring limits the maximum angle the swashplate can reach in order to prevent binding. Pitch and Roll axis should be configured individually (via the Mixer input and scaling) to the desired pitch angles (without binding). If however, both the maximum Pitch and Roll are commanded <strong>at the same time</strong>, the Swashplate will have to deflect to a larger angle than either axis individually. This may result in the swashplate binding on the main shaft.<br><br>Increasing the value of Swashring will limit the maximum Swashplate angle when both Pitch and Roll are maximum."
     },
     "mixerSwashPhase": {
-        "message": "Swashplate phase angle [&deg;]"
+        "message": "Swashplate Phase Angle"
     },
     "mixerSwashPhaseHelp": {
         "message": "The phase offset for the swashplate controls."
@@ -2797,13 +2797,13 @@
         "message": "Corrects cyclic to collective swashplate interaction.<br /><br />At full positive and negative collective pitch, adjust the corresponding values until the swashplate pivot ball remains stationary when increasing cyclic input."
     },
     "mixerSwashRollTrim": {
-        "message": "Roll trim [%]"
+        "message": "Roll"
     },
     "mixerSwashPitchTrim": {
-        "message": "Pitch trim [%]"
+        "message": "Pitch"
     },
     "mixerSwashCollectiveTrim": {
-        "message": "Collective trim [%]"
+        "message": "Collective"
     },
     "mixerSwashTrimHelp": {
         "message": "Trim for swashplate linkages. Use only if the linkages are not adjustable."
@@ -2812,7 +2812,7 @@
         "message": "Tail Rotor Settings"
     },
     "mixerTailRotorMode": {
-        "message": "Tail rotor type"
+        "message": "Tail Control Type"
     },
     "mixerTailRotorModeHelp": {
         "message": "<strong>Variable pitch:</strong> Variable pitch tail controlled by a tail servo (Servo#4). <br><strong>Motorised:</strong> The tail has a separate motor (Motor#2) for controlling the yaw.<br><strong>Bi-directional:</strong> Motorised tail operating in bi-directional mode (experimental)."
@@ -2833,7 +2833,7 @@
         "message": "Depending on the tail rotor direction and ESC/servo configuration, the yaw direction may be reversed."
     },
     "mixerTailRotorCalibration": {
-        "message": "Yaw calibration [%]"
+        "message": "Yaw Calibration"
     },
     "mixerTailRotorCalibrationHelp": {
         "message": "Adjust the yaw gain to match the mechanical gain. Usually around 50-150% for servo driven tails, but can be wildly different for motorised tail rotors."
@@ -2851,31 +2851,31 @@
         "message": "An angle limit for counter-clockwise yaw."
     },
     "mixerTailMotorMinYaw": {
-        "message": "CW yaw limit [%]"
+        "message": "CW Yaw Limit"
     },
     "mixerTailMotorMinYawHelp": {
         "message": "A limit for clockwise yaw."
     },
     "mixerTailMotorMaxYaw": {
-        "message": "CCW yaw limit [%]"
+        "message": "CCW Yaw Limit"
     },
     "mixerTailMotorMaxYawHelp": {
         "message": "A limit for counter-clockwise yaw."
     },
     "mixerTailMotorIdle": {
-        "message": "Motor idle throttle [%]"
+        "message": "Motor Idle Throttle"
     },
     "mixerTailMotorIdleHelp": {
         "message": "This is the minimum throttle signal sent to the tail motor. This should be set just high enough that the motor does not stop"
     },
     "mixerTailRotorCenterTrim": {
-        "message": "Yaw center trim"
+        "message": "Yaw Center Trim"
     },
     "mixerTailRotorCenterTrimHelp": {
         "message": "Set tail rotor trim to achieve zero blade pitch with 0° yaw mixer override."
     },
     "mixerTailMotorCenterTrim": {
-        "message": "Yaw center offset [%]"
+        "message": "Yaw Center Offset"
     },
     "mixerTailMotorCenterTrimHelp": {
         "message": "Set tail motor throttle value for zero yaw command."

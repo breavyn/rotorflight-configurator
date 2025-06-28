@@ -13,6 +13,7 @@ import "./help.js";
 import "./landing.js";
 import "./led_strip.js";
 import "./mixer.js";
+import "./mixer_2.js";
 import "./motors.js";
 import "./options.js";
 import "./power.js";

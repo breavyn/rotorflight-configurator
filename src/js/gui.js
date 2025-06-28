@@ -45,6 +45,7 @@ export const GuiControl = function () {
         'modes',
         'motors',
         'mixer',
+        'mixer_2',
         'profiles',
         'rates',
         'gyro',
