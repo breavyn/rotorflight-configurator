@@ -742,8 +742,8 @@ class FlightController {
     };
 
     this.PILOT_CONFIG = {
-        model_id: 0,
-        params: [],
+      model_id: 0,
+      params: [],
     };
   }
 
