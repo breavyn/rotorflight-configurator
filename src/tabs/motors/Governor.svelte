@@ -3,7 +3,7 @@
   import { slide } from "svelte/transition";
 
   import { FC } from "@/js/fc.svelte.js";
-  import { API_VERSION_12_8, API_VERSION_12_9 } from "@/js/data_storage";
+  import { API_VERSION_12_8, API_VERSION_12_9 } from "@/js/data_storage.js";
 
   import Field from "@/components/Field.svelte";
   import InfoNote from "@/components/notes/InfoNote.svelte";
@@ -33,6 +33,7 @@
     "gov_lost_headspeed_timeout",
     "gov_throttle_hold_timeout",
     "gov_d_cutoff",
+    "gov_spooldown_time",
   ]) {
     Object.defineProperty(fields, field, {
       get() {
@@ -239,7 +240,24 @@
             bind:value={fields.gov_spoolup_time}
           />
         </Field>
-
+        <Field id="gov-spooldown-time" label="govSpooldownTime" unit="s">
+          {#snippet tooltip()}
+            <Tooltip
+              help="govSpooldownTimeHelp"
+              attrs={[
+                { name: "genericDefault", value: "3s" },
+                { name: "genericRange", value: "0s - 25s" },
+              ]}
+            />
+          {/snippet}
+          <NumberInput
+            id="gov-spooldown-time"
+            min="0"
+            max="25"
+            step="0.1"
+            bind:value={fields.gov_spooldown_time}
+          />
+        </Field>
         <Field id="gov-tracking-time" label="govTrackingTime" unit="s">
           {#snippet tooltip()}
             <Tooltip
