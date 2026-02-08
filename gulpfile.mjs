@@ -607,12 +607,29 @@ function cordova_configxml() {
 }
 
 function cordova_deps() {
+  const command = "pnpm install --prod --frozen-lockfile --node-linker=hoisted";
+  console.log("cordova_deps", `Running cordova_deps command: ${command}`);
+
   return runAsync(
     new Promise((resolve, reject) =>
       child_process.exec(
-        "pnpm install --prod --frozen-lockfile --node-linker=hoisted",
+        command,
         { cwd: context.appdir },
-        (err) => (err ? reject(err) : resolve()),
+        (err, stdout, stderr) => {
+          if (stdout) {
+            console.log("cordova_deps", `cordova_deps stdout: ${stdout}`);
+          }
+          if (stderr) {
+            console.log("cordova_deps", `cordova_deps stderr: ${stderr}`);
+          }
+          if (err) {
+            console.log("cordova_deps", `cordova_deps error: ${err}`);
+            reject(err);
+          } else {
+            console.log("cordova_deps", `cordova_deps completed successfully`);
+            resolve();
+          }
+        },
       ),
     ),
   );
