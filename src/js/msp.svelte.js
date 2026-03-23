@@ -266,7 +266,7 @@ export const MSP = {
         // always reserve 6 bytes for protocol overhead !
         if (data) {
             const size = data.length + 6;
-            let checksum = 0;
+            let checksum;
 
             bufferOut = new ArrayBuffer(size);
             let bufView = new Uint8Array(bufferOut);
