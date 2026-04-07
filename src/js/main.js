@@ -3,6 +3,7 @@ import semver from "semver";
 import * as config from "@/js/config.js";
 import { CONFIGURATOR } from "@/js/configurator.svelte.js";
 import { handleConnectClick } from "@/js/serial_backend.js";
+import { initErrorHandler } from "@/js/error-handler.js";
 
 globalThis.TABS = {};
 
@@ -107,6 +108,8 @@ function closeHandler() {
 
 //Process to execute to real start the app
 export function startProcess() {
+    initErrorHandler();
+
     // translate to user-selected language
     i18n.localizePage();
 
