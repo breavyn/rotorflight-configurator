@@ -163,6 +163,8 @@ jobs:
 
     - name: Initialise build environment
       run: make init
+      env:
+        pnpm_config_pm_on_fail: warn
 
     - name: Build release for MacOS
       run: pnpm gulp redist --platform osx --arch x86_64 --debug
